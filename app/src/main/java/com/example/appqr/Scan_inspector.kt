@@ -7,19 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 
-import com.example.appqr.databinding.ActivityMainBinding
+import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
-import java.net.URI
 import java.util.Objects
 
-class MainActivity : AppCompatActivity() {
+class Scan_inspector : AppCompatActivity() {
 
-    private lateinit var   binding:ActivityMainBinding
+    private lateinit var   binding:ActivityScanInspectorBinding
     private lateinit var datos:String
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityScanInspectorBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         tolls = findViewById(R.id.mytoolbar)
