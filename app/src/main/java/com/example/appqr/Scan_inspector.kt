@@ -1,5 +1,6 @@
 package com.example.appqr
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
@@ -10,10 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
-import java.util.Objects
+import java.util.*
 
 class Scan_inspector : AppCompatActivity() {
 
@@ -29,14 +31,12 @@ class Scan_inspector : AppCompatActivity() {
 
         setContentView(binding.root)
         tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("APP QR")
+        tolls.setTitle("APP QR INSPECTOR")
         setSupportActionBar(tolls)
          binding.btnScan.setOnClickListener(){
              initScan()
          }
-        binding.btnBuscar.setOnClickListener(){
-            buscarDatos()
-        }
+
     }
     private  fun initScan(){
         IntentIntegrator(this).initiateScan()
@@ -51,7 +51,7 @@ class Scan_inspector : AppCompatActivity() {
             }else{
                 Toast.makeText(this,"Valor del scanner ${resultado.contents}", Toast.LENGTH_SHORT).show()
                 datos = resultado.contents
-                binding.etDatos.setText(datos)
+                buscarDatos(datos)
 
 
             }
@@ -62,26 +62,51 @@ class Scan_inspector : AppCompatActivity() {
     }
 
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-    private fun buscarDatos(){
+    @SuppressLint("SuspiciousIndentation")
+    private fun buscarDatos(dato: String){
         val db = Firebase.firestore
   //      val datosUser = db.collection("user")
 //        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
 
         db.collection("user")
-            .whereEqualTo("codigo", binding.etDatos.text.toString())
+            .whereEqualTo(FieldPath.documentId(),dato)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
 
-                    binding.tvNombres.setText(document.data["nombre"].toString())
-                    binding.tvApellidos.setText(document.data["apellido"].toString())
-
                     if(document.data["url"].toString().length == 0){
-                        binding.etCerti.setText("No cuenta con certificado")
+                        binding.estadoresult.setText("No cuenta con certificado")
 
                     }else{
 
-                        binding.etCerti.setText(document.data["url"].toString())
+                        if(document.data["fecha vigencia"]!=null) {
+
+                            var date = document . getDate ("fecha vigencia")
+                            val currentTime = Calendar.getInstance().time
+                            if (currentTime <= date) {
+                                binding.estadoresult.setText("Certificado activo ")
+                                binding.fecharesult.setText(date.toString())
+                                binding.etCerti.setText(document.data["url"].toString())
+
+                            }
+                            else
+                                binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
+                                binding.fecharesult.setText("")
+                                binding.etCerti.setText(document.data["url"].toString())
+
+                        }
+                        else {
+                            binding.estadoresult.setText("Certificado sin fecha actualizada")
+                            binding.etCerti.setText(document.data["url"].toString())
+
+                        }
+
+
+                    }
+
+                    if (document == null){
+                        binding.estadoresult.setText("Codgi QR de certificado no valido")
+
                     }
 
                     binding.etCerti.setOnClickListener(){

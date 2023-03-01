@@ -1,12 +1,12 @@
 package com.example.appqr
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.databinding.ActivityScanCiudadanoBinding
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -25,7 +25,7 @@ class Scan_ciudadano : AppCompatActivity() {
 
         setContentView(binding.root)
         tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("APP QR")
+        tolls.setTitle("APP QR CIUDADANO ")
         setSupportActionBar(tolls)
         binding.btnScan.setOnClickListener(){
             initScan()
@@ -55,6 +55,7 @@ class Scan_ciudadano : AppCompatActivity() {
     }
 
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    @SuppressLint("SuspiciousIndentation")
     private fun buscarDatos(dato:String){
         val db = Firebase.firestore
         //      val datosUser = db.collection("user")
@@ -72,11 +73,25 @@ class Scan_ciudadano : AppCompatActivity() {
 
                     }else{
 
-                        binding.scanResultado.setText("Si cuenta con certificado")
-                        if(document.data["fecha vigencia"].toString().length == 0) {
+                        if(document.data["fecha vigencia"]!=null) {
+
                             var date = document . getDate ("fecha vigencia")
-                            binding.fechavigencia.setText(date.toString())
+                            val currentTime = Calendar.getInstance().time
+                                if (currentTime <= date) {
+                                binding.scanResultado.setText("Certificado activo ")
+                                binding.fecharesultciud.setText(date.toString())
+                                }
+                                else
+                                    binding.scanResultado.setText("Certificano inactivo por fecha de vigencia")
+                                binding.fecharesultciud.setText("")
+
                         }
+                                else {
+                            binding.scanResultado.setText("Certificado sin fecha actualizada")
+
+                        }
+
+
                     }
 
                     if (document == null){
