@@ -8,6 +8,8 @@ import com.example.appqr.databinding.ActivityInicioBinding
 class Inicio : AppCompatActivity() {
 
     private lateinit var binding: ActivityInicioBinding
+    private lateinit var datos:String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,11 @@ class Inicio : AppCompatActivity() {
             val intent = Intent(this, Scan_inspector::class.java)
             startActivity(intent)
         }
+        binding.btnIngresarCiudadano.setOnClickListener(){
+            val intent = Intent(this, Scan_ciudadano::class.java)
+            startActivity(intent)
+        }
+
     }
 
 

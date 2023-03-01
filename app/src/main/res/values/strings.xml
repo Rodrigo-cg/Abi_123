@@ -2,5 +2,10 @@
     <string name="app_name">AppQR</string>
     <string name="btnIngresar_inspector">Authoridad municipal</string>
     <string name="btnIngresar_cliente">Ciudadano</string>
+    <string name="textviewScanciudadano">Escanea como ciudadano si quieres conocer la legalidad de algun local </string>
+    <string name="comprobar_certificado">Escanea como ciudadano si quieres conocer la legalidad de algun local </string>
+    <string name="scan_qr">escanear QR </string>
+    <string name="fecha_vigencia">Fecha de vigencia</string>
+
 
 </resources>
