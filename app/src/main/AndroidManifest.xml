@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AppQR"
         tools:targetApi="31">
         <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
             android:name=".Scan_ciudadano"
             android:exported="false" />
         <activity

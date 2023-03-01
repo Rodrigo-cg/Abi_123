@@ -17,7 +17,7 @@ class Inicio : AppCompatActivity() {
 
         setContentView(binding.root)
         binding.btnIngresarAuth.setOnClickListener(){
-            val intent = Intent(this, Scan_inspector::class.java)
+            val intent = Intent(this, login::class.java)
             startActivity(intent)
         }
         binding.btnIngresarCiudadano.setOnClickListener(){
