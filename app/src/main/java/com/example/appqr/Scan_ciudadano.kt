@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Scan_ciudadano : AppCompatActivity() {
@@ -28,6 +29,8 @@ class Scan_ciudadano : AppCompatActivity() {
         tolls.setTitle("APP QR CIUDADANO ")
         setSupportActionBar(tolls)
         binding.btnScan.setOnClickListener(){
+            binding.fecharesult.setText("")
+
             initScan()
         }
 
@@ -69,7 +72,9 @@ class Scan_ciudadano : AppCompatActivity() {
 
 
                     if(document.data["url"].toString().length == 0){
-                        binding.scanResultado.setText("No cuenta con certificado")
+                        binding.estadoresult.setText("No cuenta con certificado")
+                        binding.fecharesult.setText("")
+
 
                     }else{
 
@@ -78,24 +83,30 @@ class Scan_ciudadano : AppCompatActivity() {
                             var date = document . getDate ("fecha vigencia")
                             val currentTime = Calendar.getInstance().time
                                 if (currentTime <= date) {
-                                binding.scanResultado.setText("Certificado activo ")
-                                binding.fecharesultciud.setText(date.toString())
+                                binding.estadoresult.setText("Certificado activo ")
+                                   val sdf = SimpleDateFormat("dd/MM/yy")
+                                    val current = sdf.format(date)
+                                    binding.fecharesult.setText(current)
                                 }
-                                else
-                                    binding.scanResultado.setText("Certificano inactivo por fecha de vigencia")
-                                binding.fecharesultciud.setText("")
+                                else{
+                                    binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
+                                    val sdf = SimpleDateFormat("dd/MM/yy")
+                                    val current = sdf.format(date)
+                                    binding.fecharesult.setText(current)}
 
                         }
                                 else {
-                            binding.scanResultado.setText("Certificado sin fecha actualizada")
-
+                            binding.estadoresult.setText("Certificado sin fecha actualizada")
+                            binding.fecharesult.setText("")
                         }
 
 
                     }
 
                     if (document == null){
-                        binding.scanResultado.setText("Codgi QR de certificado no valido")
+                        binding.estadoresult.setText("Codgi QR de certificado no valido")
+                        binding.fecharesult.setText("")
+
 
                     }
 
@@ -108,7 +119,7 @@ class Scan_ciudadano : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
 
-                    binding.scanResultado.setText("Error al cargar el documento")
+                    binding.estadoresult.setText("Error al cargar el documento")
 
 
             }

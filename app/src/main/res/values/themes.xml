@@ -9,6 +9,7 @@
         <item name="colorSecondary">#DC2943</item>
         <item name="colorSecondaryVariant">#DC2943</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

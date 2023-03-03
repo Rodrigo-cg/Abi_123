@@ -6,7 +6,7 @@
     <string name="comprobar_certificado">Escanea como ciudadano si quieres conocer la legalidad de algun local </string>
     <string name="scan_qr">escanear QR </string>
     <string name="fecha_vigencia">Fecha de vigencia</string>
-    <string name="Estado">Estado certificado</string>
+    <string name="Estado">Estado de certificado</string>
 
 
 </resources>

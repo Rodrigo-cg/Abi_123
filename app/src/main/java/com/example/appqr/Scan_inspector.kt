@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Scan_inspector : AppCompatActivity() {
@@ -34,6 +36,8 @@ class Scan_inspector : AppCompatActivity() {
         tolls.setTitle("APP QR INSPECTOR")
         setSupportActionBar(tolls)
          binding.btnScan.setOnClickListener(){
+             binding.visualizar.visibility= View.INVISIBLE
+
              initScan()
          }
 
@@ -64,6 +68,7 @@ class Scan_inspector : AppCompatActivity() {
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     @SuppressLint("SuspiciousIndentation")
     private fun buscarDatos(dato: String){
+
         val db = Firebase.firestore
   //      val datosUser = db.collection("user")
 //        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
@@ -76,6 +81,8 @@ class Scan_inspector : AppCompatActivity() {
 
                     if(document.data["url"].toString().length == 0){
                         binding.estadoresult.setText("No cuenta con certificado")
+                        binding.visualizar.visibility= View.INVISIBLE
+
 
                     }else{
 
@@ -85,19 +92,26 @@ class Scan_inspector : AppCompatActivity() {
                             val currentTime = Calendar.getInstance().time
                             if (currentTime <= date) {
                                 binding.estadoresult.setText("Certificado activo ")
-                                binding.fecharesult.setText(date.toString())
-                                binding.etCerti.setText(document.data["url"].toString())
+                                val sdf = SimpleDateFormat("dd/MM/yy")
+                                val current = sdf.format(date)
+                                binding.fecharesult.setText(current)
+                                binding.visualizar.visibility= View.VISIBLE
 
                             }
-                            else
+                            else {
                                 binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
-                                binding.fecharesult.setText("")
-                                binding.etCerti.setText(document.data["url"].toString())
+                                val sdf = SimpleDateFormat("dd/MM/yy")
+                                val current = sdf.format(date)
+                                binding.fecharesult.setText(current)
+                                binding.visualizar.visibility = View.VISIBLE
+                            }
 
                         }
                         else {
                             binding.estadoresult.setText("Certificado sin fecha actualizada")
-                            binding.etCerti.setText(document.data["url"].toString())
+                            binding.visualizar.visibility= View.VISIBLE
+                            binding.fecharesult.setText("")
+
 
                         }
 
@@ -106,11 +120,12 @@ class Scan_inspector : AppCompatActivity() {
 
                     if (document == null){
                         binding.estadoresult.setText("Codgi QR de certificado no valido")
+                        binding.fecharesult.setText("")
+
 
                     }
 
-                    binding.etCerti.setOnClickListener(){
-
+                    binding.visualizar.setOnClickListener(){
                         buscarUrl(document.data["url"].toString())}
 
                     println("datos mapeo----------------------- ${document.data["url"].toString().length}")
