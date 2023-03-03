@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import org.checkerframework.common.returnsreceiver.qual.This
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,6 +42,16 @@ class Scan_inspector : AppCompatActivity() {
 
              initScan()
          }
+
+        binding.btnDetalle.setOnClickListener(){
+            /*
+            *    val intent =  Intent(Intent.ACTION_VIEW,Uri.parse("$links"))
+            startActivity(intent)
+            * */
+
+            val intento = Intent(this,detalle_inspector::class.java)
+            startActivity(intento)
+        }
 
     }
     private  fun initScan(){
