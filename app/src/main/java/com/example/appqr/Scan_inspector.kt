@@ -82,10 +82,7 @@ class Scan_inspector : AppCompatActivity() {
                     if(document.data["url"].toString().length == 0){
                         binding.estadoresult.setText("No cuenta con certificado")
                         binding.visualizar.visibility= View.INVISIBLE
-
-
                     }else{
-
                         if(document.data["fecha vigencia"]!=null) {
 
                             var date = document . getDate ("fecha vigencia")
