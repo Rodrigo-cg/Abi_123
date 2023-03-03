@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppQR</string>
+    <string name="app_name">ATE Inspección</string>
     <string name="btnIngresar_inspector">Authoridad municipal</string>
     <string name="btnIngresar_cliente">Ciudadano</string>
     <string name="textviewScanciudadano">Escanea como ciudadano si quieres conocer la legalidad de algun local </string>

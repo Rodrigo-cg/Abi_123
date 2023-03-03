@@ -10,15 +10,16 @@
         layout="@layout/custom_toolbar"></include>
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="334dp"
         android:layout_height="254dp"
-        android:src="@drawable/logo12"
+        android:src="@drawable/logoapp23"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125"></ImageView>
+        app:layout_constraintVertical_bias="0.267"></ImageView>
 
     <Button
         android:id="@+id/btnIngresarAuth"
@@ -26,24 +27,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="176dp"
         android:background="@drawable/btn1"
         android:text="@string/btnIngresar_inspector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnIngresarCiudadano"
+        app:layout_constraintVertical_bias="0.362" />
 
     <Button
         android:id="@+id/btnIngresarCiudadano"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/btn1"
         android:text="@string/btnIngresar_cliente"
-        app:layout_constraintBottom_toTopOf="@+id/btnIngresarAuth"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
