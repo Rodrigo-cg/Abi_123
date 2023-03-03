@@ -37,6 +37,7 @@ class Scan_inspector : AppCompatActivity() {
         setSupportActionBar(tolls)
          binding.btnScan.setOnClickListener(){
              binding.visualizar.visibility= View.INVISIBLE
+             binding.fecharesult.setText("")
 
              initScan()
          }
