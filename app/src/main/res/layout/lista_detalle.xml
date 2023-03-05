@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        tools:background="@color/purple_700"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvRazon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Razon - NombreEmpresa"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivFoto"
+        />
+
+    <TextView
+        android:id="@+id/tvRepresentante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Representante Legal"
+        app:layout_constraintTop_toBottomOf="@id/tvRazon"
+        app:layout_constraintStart_toEndOf="@id/ivFoto"
+        />
+    <TextView
+        android:id="@+id/tvDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Direccion del local"
+        app:layout_constraintTop_toBottomOf="@id/tvRepresentante"
+        app:layout_constraintStart_toEndOf="@+id/ivFoto"
+        />
+    <TextView
+        android:id="@+id/tvActvidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Actividad - Giro"
+        app:layout_constraintTop_toBottomOf="@id/tvDireccion"
+        app:layout_constraintStart_toEndOf="@+id/ivFoto"
+        />
+    <TextView
+        android:id="@+id/tvFecVencimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Fecha de Vencimiento"
+        app:layout_constraintTop_toBottomOf="@id/tvActvidad"
+        app:layout_constraintStart_toEndOf="@+id/ivFoto"
+        />
+    <TextView
+        android:id="@+id/tvVigencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Vigencia del Certificado"
+        app:layout_constraintTop_toBottomOf="@id/tvFecVencimiento"
+        app:layout_constraintStart_toEndOf="@+id/ivFoto"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

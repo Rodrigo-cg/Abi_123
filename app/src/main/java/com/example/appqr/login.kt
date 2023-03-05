@@ -18,6 +18,7 @@ class login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val btningresar : Button = findViewById(R.id.btningresar)
+        val btnListado : Button = findViewById(R.id.btnListado)
         val txtemail : TextView = findViewById(R.id.edtEmail)
         val  txtpass : TextView = findViewById(R.id.edtPassword)
         firebaseAuth= Firebase.auth
@@ -25,6 +26,14 @@ class login : AppCompatActivity() {
         {
               signIn(txtemail.text.toString(),txtpass.text.toString())
         }
+
+        btnListado.setOnClickListener(){
+
+            val intento = Intent(this,detalle_inspector::class.java)
+            startActivity(intento)
+        }
+
+
     }
     private fun signIn(email: String, password: String)
     {
