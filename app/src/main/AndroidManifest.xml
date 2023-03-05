@@ -57,7 +57,11 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".detalle_inspector"></activity>
+
+        <activity android:name=".detalle_inspector"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

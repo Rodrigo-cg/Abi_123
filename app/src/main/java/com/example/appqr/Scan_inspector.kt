@@ -49,8 +49,8 @@ class Scan_inspector : AppCompatActivity() {
             startActivity(intent)
             * */
 
-            val intento = Intent(this,detalle_inspector::class.java)
-            startActivity(intento)
+            //val intento = Intent(this,detalle_inspector::class.java)
+            //startActivity(intento)
         }
 
     }
