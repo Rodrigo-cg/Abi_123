@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
@@ -30,6 +31,15 @@ class Scan_inspector : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Bienvenido")
+        builder.setMessage("Recuerda verificar y estar atento a la fecha de vigencia")
+        builder.setPositiveButton("Aceptar"){
+                dialog, which ->
+            Toast.makeText(this,"has aceptado", Toast.LENGTH_LONG).show()
+        }
+        builder.show()
+
         binding = ActivityScanInspectorBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
