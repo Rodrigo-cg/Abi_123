@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.LinearLayoutCompat
@@ -21,9 +23,10 @@ import kotlin.collections.ArrayList
 
 class detalle_inspector : AppCompatActivity() {
     private lateinit var   binding:DetalleInspectorBinding
-
+    private  var  contador = 0
     private lateinit var  certiList:ArrayList<Certificados>
     private lateinit var  adapterCerti: detalleAdapter
+    private lateinit var  builder:AlertDialog.Builder
     private lateinit var tolls: Toolbar
 
 
@@ -38,6 +41,7 @@ class detalle_inspector : AppCompatActivity() {
         setSupportActionBar(tolls)
         binding.btnSeach.setOnClickListener(){
             buscarCertificados(binding.etDNI.text.toString())
+            contador = 0
         }
 
     }
@@ -64,19 +68,27 @@ class detalle_inspector : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 for(document in documents){
-                    val cerItem = document.toObject(Certificados::class.java)
-                    cerItem.razon = document["razon"].toString()
-                    cerItem.representante = document["representante"].toString()
-                    cerItem.direccion = document["direccion"].toString()
-                    cerItem.actividad = document["actividad"].toString()
-                    cerItem.fechaVencimiento = document["fecvencer"].toString()
-                    cerItem.vigencia = document["vigencia"].toString()
+                    if(document == null ){
+                        println("SAPOSSSSSSS------------------------")
+                        Toast.makeText(this,"No hay datos", Toast.LENGTH_SHORT).show()
+                    }else{
+                        println("SAPOSSSSSSS------------------------22222")
+                        val cerItem = document.toObject(Certificados::class.java)
+                        cerItem.razon = document["razon"].toString()
+                        cerItem.representante = document["representante"].toString()
+                        cerItem.direccion = document["direccion"].toString()
+                        cerItem.actividad = document["actividad"].toString()
+                        cerItem.fechaVencimiento = document["fecvencer"].toString()
+                        cerItem.vigencia = document["vigencia"].toString()
 
 
-                    binding.rvResultados.layoutManager = LinearLayoutManager(this)
-                    binding.rvResultados.adapter = adapterCerti
-                    certiList.add(cerItem)
+                        binding.rvResultados.layoutManager = LinearLayoutManager(this)
+                        binding.rvResultados.adapter = adapterCerti
+                        certiList.add(cerItem)
 
+                    }
+                    contador++
+                    Toast.makeText(this,"Coincidencias ${contador}", Toast.LENGTH_SHORT).show()
                     //val certList: MutableMap<String, Any> = document.data
                     Log.i("listadoosss", document.data.toString())
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
