@@ -19,13 +19,14 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.267"></ImageView>
+        app:layout_constraintVertical_bias="0.267" />
 
     <Button
         android:id="@+id/btnIngresarAuth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="176dp"
         android:background="@drawable/btn1"
@@ -42,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/btn1"
         android:text="@string/btnIngresar_cliente"

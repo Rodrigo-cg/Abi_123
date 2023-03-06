@@ -34,6 +34,10 @@ class Scan_ciudadano : AppCompatActivity() {
             initScan()
         }
 
+        binding.etTexto.setEndIconOnClickListener(){
+            buscarCertificado(binding.etNumeros.text.toString())
+        }
+
     }
     private  fun initScan(){
         IntentIntegrator(this).initiateScan()
@@ -49,6 +53,7 @@ class Scan_ciudadano : AppCompatActivity() {
                 Toast.makeText(this,"Valor del scanner ${resultado.contents}", Toast.LENGTH_SHORT).show()
                 datos = resultado.contents
                 buscarDatos(datos)
+
 
             }
         }else{
@@ -127,6 +132,72 @@ class Scan_ciudadano : AppCompatActivity() {
         //binding.tvNombres.setText(nombresU)
     }
 
+    private fun buscarCertificado(numero:String){
+        val db = Firebase.firestore
+        //      val datosUser = db.collection("user")
+//        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
+
+        db.collection("user")
+            .whereEqualTo("codigo",numero)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+
+
+                    if(document.data["url"].toString().length == 0){
+                        binding.estadoresult.setText("No cuenta con certificado")
+                        binding.fecharesult.setText("")
+
+
+                    }else{
+
+                        if(document.data["fecha vigencia"]!=null) {
+
+                            var date = document . getDate ("fecha vigencia")
+                            val currentTime = Calendar.getInstance().time
+                            if (currentTime <= date) {
+                                binding.estadoresult.setText("Certificado activo ")
+                                val sdf = SimpleDateFormat("dd/MM/yy")
+                                val current = sdf.format(date)
+                                binding.fecharesult.setText(current)
+                            }
+                            else{
+                                binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
+                                val sdf = SimpleDateFormat("dd/MM/yy")
+                                val current = sdf.format(date)
+                                binding.fecharesult.setText(current)}
+
+                        }
+                        else {
+                            binding.estadoresult.setText("Certificado sin fecha actualizada")
+                            binding.fecharesult.setText("")
+                        }
+
+
+                    }
+
+                    if (document == null){
+                        binding.estadoresult.setText("Codgi QR de certificado no valido")
+                        binding.fecharesult.setText("")
+
+
+                    }
+
+
+
+
+
+                }
+
+            }
+            .addOnFailureListener { exception ->
+
+                binding.estadoresult.setText("Error al cargar el documento")
+
+
+            }
+
+    }
 
 
 

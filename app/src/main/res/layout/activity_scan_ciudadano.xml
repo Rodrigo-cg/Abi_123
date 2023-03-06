@@ -67,12 +67,12 @@
         android:id="@+id/constraintLayout"
         android:layout_width="260dp"
         android:layout_height="93dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/btn3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScan">
+        app:layout_constraintTop_toBottomOf="@+id/etTexto">
 
         <TextView
             android:id="@+id/fechavigencia"
@@ -96,5 +96,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fechavigencia" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etTexto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/lupa"
+        app:endIconContentDescription="@string/lupa"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScan">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNumeros"
+
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="@string/num_certificado" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
