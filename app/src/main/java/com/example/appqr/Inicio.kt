@@ -28,6 +28,8 @@ class Inicio : AppCompatActivity() {
         binding.btnIngresarCiudadano.setOnClickListener(){
             val intent = Intent(this, Scan_ciudadano::class.java)
             startActivity(intent)
+
+
         }
 
     }

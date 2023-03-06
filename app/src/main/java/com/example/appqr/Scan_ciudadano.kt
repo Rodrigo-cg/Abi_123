@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.databinding.ActivityScanCiudadanoBinding
@@ -19,9 +20,17 @@ class Scan_ciudadano : AppCompatActivity() {
     private lateinit var datos:String
     private lateinit var tolls: Toolbar
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Bienvenido")
+        builder.setMessage("Recuerda verificar y estar atento a la fecha de vigencia")
+        builder.setPositiveButton("Aceptar"){
+            dialog, which ->
+            Toast.makeText(this,"has aceptado", Toast.LENGTH_LONG).show()
+        }
+        builder.show()
+
         binding = ActivityScanCiudadanoBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -35,6 +44,8 @@ class Scan_ciudadano : AppCompatActivity() {
         }
 
     }
+
+
     private  fun initScan(){
         IntentIntegrator(this).initiateScan()
     }
