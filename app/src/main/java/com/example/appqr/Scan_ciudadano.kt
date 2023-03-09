@@ -2,6 +2,7 @@ package com.example.appqr
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -20,6 +21,7 @@ class Scan_ciudadano : AppCompatActivity() {
     private lateinit var datos:String
     private lateinit var tolls: Toolbar
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val builder = AlertDialog.Builder(this)
@@ -37,6 +39,8 @@ class Scan_ciudadano : AppCompatActivity() {
         tolls = findViewById(R.id.mytoolbar)
         tolls.setTitle("APP QR CIUDADANO ")
         setSupportActionBar(tolls)
+        binding.constraintLayout2.background=resources.getDrawable(R.drawable.btn3)
+
         binding.btnScan.setOnClickListener(){
             binding.fecharesult.setText("")
 
@@ -77,6 +81,8 @@ class Scan_ciudadano : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
     private fun buscarDatos(dato:String){
         val db = Firebase.firestore
+        binding.constraintLayout2.background=resources.getDrawable(R.drawable.btn3)
+
         //      val datosUser = db.collection("user")
 //        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
 
@@ -90,6 +96,7 @@ class Scan_ciudadano : AppCompatActivity() {
                     if(document.data["url"].toString().length == 0){
                         binding.estadoresult.setText("No cuenta con certificado")
                         binding.fecharesult.setText("")
+                        binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
 
 
                     }else{
@@ -102,18 +109,33 @@ class Scan_ciudadano : AppCompatActivity() {
                                 binding.estadoresult.setText("Certificado activo ")
                                    val sdf = SimpleDateFormat("dd/MM/yy")
                                     val current = sdf.format(date)
+                                    val cal = Calendar.getInstance()
+                                    cal.time = currentTime
+                                    val day1 = cal.get(Calendar.DAY_OF_YEAR)
+                                    val diff: Long = (date?.getTime() ?:currentTime.getTime()) - currentTime.getTime()
+                                    val seconds = diff / 1000
+                                    val minutes = seconds / 60
+                                    val hours = minutes / 60
+                                    val days = hours / 24
                                     binding.fecharesult.setText(current)
+                                    binding.constraintLayout2.setBackgroundColor(Color.parseColor("#609f1c"))
                                 }
                                 else{
                                     binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
                                     val sdf = SimpleDateFormat("dd/MM/yy")
                                     val current = sdf.format(date)
-                                    binding.fecharesult.setText(current)}
+                                    binding.fecharesult.setText(current)
+                                    binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
+                                }
+
 
                         }
                                 else {
                             binding.estadoresult.setText("Certificado sin fecha actualizada")
                             binding.fecharesult.setText("")
+                            binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
                         }
 
 
@@ -122,6 +144,8 @@ class Scan_ciudadano : AppCompatActivity() {
                     if (document == null){
                         binding.estadoresult.setText("Codgi QR de certificado no valido")
                         binding.fecharesult.setText("")
+                        binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
 
 
                     }
@@ -136,6 +160,8 @@ class Scan_ciudadano : AppCompatActivity() {
             .addOnFailureListener { exception ->
 
                     binding.estadoresult.setText("Error al cargar el documento")
+                    binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
 
 
             }
@@ -145,6 +171,8 @@ class Scan_ciudadano : AppCompatActivity() {
 
     private fun buscarCertificado(numero:String){
         val db = Firebase.firestore
+        binding.constraintLayout2.background=resources.getDrawable(R.drawable.btn3)
+
         //      val datosUser = db.collection("user")
 //        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
 
@@ -158,6 +186,8 @@ class Scan_ciudadano : AppCompatActivity() {
                     if(document.data["url"].toString().length == 0){
                         binding.estadoresult.setText("No cuenta con certificado")
                         binding.fecharesult.setText("")
+                        binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
 
 
                     }else{
@@ -171,17 +201,25 @@ class Scan_ciudadano : AppCompatActivity() {
                                 val sdf = SimpleDateFormat("dd/MM/yy")
                                 val current = sdf.format(date)
                                 binding.fecharesult.setText(current)
+                                binding.constraintLayout2.setBackgroundColor(Color.parseColor("#609f1c"))
+
                             }
                             else{
                                 binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
                                 val sdf = SimpleDateFormat("dd/MM/yy")
                                 val current = sdf.format(date)
-                                binding.fecharesult.setText(current)}
+                                binding.fecharesult.setText(current)
+                                binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
+                            }
+
 
                         }
                         else {
                             binding.estadoresult.setText("Certificado sin fecha actualizada")
                             binding.fecharesult.setText("")
+                            binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
+
                         }
 
 
@@ -190,6 +228,7 @@ class Scan_ciudadano : AppCompatActivity() {
                     if (document == null){
                         binding.estadoresult.setText("Codgi QR de certificado no valido")
                         binding.fecharesult.setText("")
+                        binding.constraintLayout2.setBackgroundColor(Color.parseColor("#cb0e00"))
 
 
                     }
