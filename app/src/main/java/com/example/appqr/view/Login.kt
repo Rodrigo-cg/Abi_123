@@ -1,4 +1,4 @@
-package com.example.appqr
+package com.example.appqr.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.appqr.R
+import com.example.appqr.detalle_inspector
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -29,7 +31,7 @@ class login : AppCompatActivity() {
 
         btnListado.setOnClickListener(){
 
-            val intento = Intent(this,detalle_inspector::class.java)
+            val intento = Intent(this, detalle_inspector::class.java)
             startActivity(intento)
         }
 
@@ -43,7 +45,7 @@ class login : AppCompatActivity() {
                 val user = firebaseAuth.currentUser
                 Toast.makeText(baseContext,"Bienvenido...", Toast.LENGTH_SHORT).show()
                 //Aqui vamos a ir a la otra pollada
-                val i = Intent(this,Scan_inspector::class.java)
+                val i = Intent(this, Scan_inspector::class.java)
                 startActivity(i)
             }
             else

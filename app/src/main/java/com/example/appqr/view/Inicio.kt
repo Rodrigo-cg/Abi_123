@@ -1,9 +1,10 @@
-package com.example.appqr
+package com.example.appqr.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import com.example.appqr.R
 import com.example.appqr.databinding.ActivityInicioBinding
 
 class Inicio : AppCompatActivity() {

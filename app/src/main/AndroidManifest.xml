@@ -22,17 +22,17 @@
         >
 
         <activity
-            android:name=".login"
+            android:name=".view.login"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Scan_ciudadano"
+            android:name=".view.Scan_ciudadano"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Inicio"
+            android:name=".view.Inicio"
             android:exported="true"
             android:screenOrientation="portrait"
             >
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Scan_inspector"
+            android:name=".view.Scan_inspector"
             android:screenOrientation="portrait"
 
             android:exported="true">

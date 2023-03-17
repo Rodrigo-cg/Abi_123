@@ -1,4 +1,4 @@
-package com.example.appqr
+package com.example.appqr.view
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -8,17 +8,22 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.appqr.R
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
-import org.checkerframework.common.returnsreceiver.qual.This
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -273,6 +278,38 @@ class Scan_inspector : AppCompatActivity() {
         //nombresU = datosUser["nombres"].toString()
 
         //binding.tvNombres.setText(nombresU)
+       /*//comenzar la api rest de php
+        val queue=Volley.newRequestQueue(this)
+        val url="https://proyectosti.muniate.gob.pe/certificados_apps/conexiones_php/consultar.php"
+        var jsonObjectRequest= JsonObjectRequest(
+            Request.Method.GET,url,null,
+            Response.Listener { response ->
+                try {
+                    var jsonArray=response.getJSONArray("data")
+                    for(i in 0 until jsonArray.length() ){
+                        var jsonObject=jsonArray.getJSONObject(i)
+                        val registro=
+                            LayoutInflater.from(this).inflate(R.layout.deployconsulta,null,false)
+                        val colNombre=registro.findViewById<View>(R.id.colNombre) as TextView
+                        val colEmail=registro.findViewById<View>(R.id.colEmail) as TextView
+                        val colEditar=registro.findViewById<View>(R.id.colEditar)
+                        val colBorrar=registro.findViewById<View>(R.id.colBorrar)
+                        colNombre.text=jsonObject.getString("nombre")
+                        colEmail.text=jsonObject.getString("email")
+                        colEditar.id=jsonObject.getString("id").toInt()
+                        colBorrar.id=jsonObject.getString("id").toInt()
+                        tbUsuarios?.addView(registro)
+                    }
+                }catch (e: JSONException){
+                    e.printStackTrace()
+                }
+            },Response.ErrorListener { error ->
+
+            }
+        )
+        queue.add(jsonObjectRequest)
+        //terminar la api rest de php*/
+
     }
     private fun buscarUrl(links: String) {
 
