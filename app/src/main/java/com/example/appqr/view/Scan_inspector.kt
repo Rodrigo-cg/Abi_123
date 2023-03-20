@@ -20,10 +20,17 @@ import com.android.volley.toolbox.Volley
 import com.example.appqr.R
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
+import com.example.appqr.model.apiService
+import com.example.appqr.model.data
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +41,7 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
 
-
+    private val lista_par_certf = mutableListOf<data>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val builder = AlertDialog.Builder(this)
@@ -59,7 +66,8 @@ class Scan_inspector : AppCompatActivity() {
              initScan()
          }
         binding.etTexto.setEndIconOnClickListener(){
-            buscarCertificado(binding.etNumeros.text.toString())
+            //buscarCertificado(binding.etNumeros.text.toString())
+            buscardatosretrofit(binding.etNumeros.text.toString())
         }
         binding.btnDetalle.setOnClickListener(){
             /*
@@ -310,6 +318,34 @@ class Scan_inspector : AppCompatActivity() {
         queue.add(jsonObjectRequest)
         //terminar la api rest de php*/
 
+    }
+    private fun buscardatosretrofit(dato:String){
+        getRetrofit()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(apiService::class.java). getMascotas("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+            val datos_cert = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    //show rv
+                    val listaMasc = datos_cert?.datos ?: emptyList()
+                    lista_par_certf.clear()
+                    lista_par_certf.addAll(listaMasc)
+                    binding.estadoresult.setText(lista_par_certf.elementAt(1).Estado)
+
+                } else {
+                    //error
+                    Toast.makeText(this@Scan_inspector,"Error al llamr la API rv",Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        }
+    }
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://proyectosti.muniate.gob.pe/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
     private fun buscarUrl(links: String) {
 

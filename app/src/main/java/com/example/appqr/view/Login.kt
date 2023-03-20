@@ -26,12 +26,12 @@ class login : AppCompatActivity() {
         firebaseAuth= Firebase.auth
         btningresar.setOnClickListener()
         {
-              signIn(txtemail.text.toString(),txtpass.text.toString())
+            signIn(txtemail.text.toString(),txtpass.text.toString())
         }
 
         btnListado.setOnClickListener(){
 
-            val intento = Intent(this, detalle_inspector::class.java)
+            val intento = Intent(this,detalle_inspector::class.java)
             startActivity(intento)
         }
 
@@ -40,12 +40,12 @@ class login : AppCompatActivity() {
     private fun signIn(email: String, password: String)
     {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){
-            task ->
+                task ->
             if (task.isSuccessful){
                 val user = firebaseAuth.currentUser
                 Toast.makeText(baseContext,"Bienvenido...", Toast.LENGTH_SHORT).show()
                 //Aqui vamos a ir a la otra pollada
-                val i = Intent(this, Scan_inspector::class.java)
+                val i = Intent(this,Scan_inspector::class.java)
                 startActivity(i)
             }
             else
