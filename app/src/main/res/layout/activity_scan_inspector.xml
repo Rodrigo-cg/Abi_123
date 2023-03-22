@@ -129,6 +129,19 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <Button
+        android:id="@+id/datacert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn1"
+        android:text="Detallar Certificado"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visualizar" />
+
+    <Button
         android:id="@+id/btnDetalle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -140,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/visualizar" />
+        app:layout_constraintTop_toBottomOf="@+id/datacert" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

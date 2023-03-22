@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools2="http://schemas.android.com/tools"
-    android:color="@color/btn1"
-    >
-<item>
-
- <shape android:shape="rectangle">
-    <solid android:color="@color/btn1"/>
-     <corners android:radius="50dp"/>
-
- </shape>
-</item>
-</ripple>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#C1255B"
+        android:endColor="#1F618D"
+        android:angle="0"
+        />
+    <corners android:bottomLeftRadius="10dp"
+        android:topRightRadius="10dp"
+        android:topLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        />
+</shape>

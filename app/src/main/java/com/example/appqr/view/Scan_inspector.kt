@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley
 import com.example.appqr.R
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
+import com.example.appqr.detalleCertificados
 import com.example.appqr.model.apiService
 import com.example.appqr.model.data
 import com.google.firebase.firestore.FieldPath
@@ -43,6 +44,14 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
 
+    private var Estado= ""
+    private var Lic_func= ""
+    private var Nombre_Razon= ""
+    private var direccion= ""
+    private var zona= ""
+
+
+
     private val lista_par_certf = mutableListOf<data>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +63,9 @@ class Scan_inspector : AppCompatActivity() {
             Toast.makeText(this,"has aceptado", Toast.LENGTH_LONG).show()
         }
         builder.show()
-
         binding = ActivityScanInspectorBinding.inflate(layoutInflater)
+        binding.btnDetalle.visibility= View.INVISIBLE
+
 
         setContentView(binding.root)
         tolls = findViewById(R.id.mytoolbar)
@@ -327,14 +337,27 @@ class Scan_inspector : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             GlobalScope.launch {
                 val result = getRetrofit().create(apiService::class.java). getQuotes("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+                val certpar=result.body()
+                runOnUiThread{
+                    if (result != null) {
+                        // Checking the results
+                        Log.d("ayush: ", result.body().toString())
+                         Estado= certpar?.Estado ?:"No exite en base de datos"
+                         Lic_func= certpar?.Lic_Func ?:"No exite en base de datos"
+                         Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
+                         direccion= certpar?.Direccion ?:"No exite en base de datos"
+                         zona= certpar?.Zona_Urbana ?:"No exite en base de datos"
+                            binding.btnDetalle.visibility= View.VISIBLE
 
-                if (result != null) {
-                    // Checking the results
-                    Log.d("ayush: ", result.body().toString())
+                        binding.btnDetalle.setOnClickListener(){
+                            initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona)
+                        }
 
-                    //binding.estadoresult.text = result.body().toString()
-                }else
-                    Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
+                        binding.estadoresult.setText(Estado)
+                    }else
+                        Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
+                }
+
 
             }
             }
@@ -352,6 +375,20 @@ class Scan_inspector : AppCompatActivity() {
             startActivity(intent)
 
     }
+    private fun initActivity(estado:String,lic_func:String,Nombre_razon:String,Direccion:String,Zona:String) {
+        val i = Intent(this,detalleCertificados::class.java).apply {
+            putExtra("Estado",estado)
+            putExtra("lic_func",lic_func)
+            putExtra("Nombre_razon",Nombre_razon)
+            putExtra("Direccion",Direccion)
+            putExtra("Zona",Zona)
 
+
+
+            //putExtra("",)
+        }
+        startActivity(i)
+
+    }
 
 }

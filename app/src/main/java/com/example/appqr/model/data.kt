@@ -8,4 +8,5 @@ data class data(
     @SerializedName("Nombre_Razon_Social") val Nombre_Razón_Social: String? = null,
     @SerializedName("Direccion") val Direccion: String? = null,
     @SerializedName("Zona_Urbana") val Zona_Urbana: String? = null,
-)
+
+    )

@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".view.Inicio">
 
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="240dp"
+
+        android:layout_height="117dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/logo2023_png"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        tools:ignore="MissingConstraints">
+
+    </ImageView>
+
     <include
         layout="@layout/custom_toolbar"></include>
 
@@ -16,28 +30,31 @@
         android:src="@drawable/logoapp23"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.267" />
+        app:layout_constraintVertical_bias="0.153" />
 
-    <Button
+    <android.widget.Button
+        android:textAllCaps="false"
+
         android:id="@+id/btnIngresarAuth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/btn1"
+        android:background="@drawable/btn3"
+        android:fontFamily="@font/redhatdisplay_extrabold"
         android:text="@string/btnIngresar_inspector"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#C1255B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIngresarCiudadano"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintTop_toBottomOf="@+id/btnIngresarCiudadano" />
 
-    <Button
+    <android.widget.Button
+        android:textAllCaps="false"
         android:id="@+id/btnIngresarCiudadano"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,11 +62,35 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/btn1"
+        android:fontFamily="@font/redhatdisplay_extrabold"
         android:text="@string/btnIngresar_cliente"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.023" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="118dp"
+        android:layout_height="7dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="144dp"
+        android:background="@drawable/btn1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnIngresarAuth"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="66dp"
+        android:layout_height="7dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="144dp"
+        android:background="@drawable/btn1"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/btnIngresarAuth"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
