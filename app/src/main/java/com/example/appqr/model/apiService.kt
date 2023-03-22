@@ -6,11 +6,7 @@ import retrofit2.http.Url
 
 interface apiService {
 
-    @GET("consultar.php")
-    Call<List<data>>Response<dataCertificado>
-
     @GET
-    suspend fun getMascotas(@Url url:String): Response<dataCertificado>
-
-
+    suspend fun getQuotes(@Url url: String) : Response<data>
 }
+

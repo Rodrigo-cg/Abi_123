@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat.startActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -28,6 +29,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -323,24 +325,21 @@ class Scan_inspector : AppCompatActivity() {
         getRetrofit()
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(apiService::class.java). getMascotas("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
-            val datos_cert = call.body()
-            runOnUiThread {
-                if (call.isSuccessful) {
-                    //show rv
-                    val listaMasc = datos_cert?.datos ?: emptyList()
-                    lista_par_certf.clear()
-                    lista_par_certf.addAll(listaMasc)
-                    binding.estadoresult.setText(lista_par_certf.elementAt(1).Estado)
+            GlobalScope.launch {
+                val result = getRetrofit().create(apiService::class.java). getQuotes("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
 
-                } else {
-                    //error
-                    Toast.makeText(this@Scan_inspector,"Error al llamr la API rv",Toast.LENGTH_SHORT).show()
+                if (result != null) {
+                    // Checking the results
+                    Log.d("ayush: ", result.body().toString())
 
-                }
+                    //binding.estadoresult.text = result.body().toString()
+                }else
+                    Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
+
+            }
             }
         }
-    }
+
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://proyectosti.muniate.gob.pe/")
