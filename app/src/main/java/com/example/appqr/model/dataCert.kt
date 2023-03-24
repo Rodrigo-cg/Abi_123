@@ -2,7 +2,7 @@ package com.example.appqr.model
 
 import com.google.gson.annotations.SerializedName
 
-data class data(
+data class dataCert(
     @SerializedName("Estado") val Estado: String? = null,
     @SerializedName("Lic_Func") val Lic_Func: String? = null,
     @SerializedName("Nombre_Razon_Social") val Nombre_Razón_Social: String? = null,

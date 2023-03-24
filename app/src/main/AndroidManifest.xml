@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppQR"
         tools:targetApi="31">
         <activity
+            android:name=".prueba"
+            android:exported="false" />
+        <activity
             android:name=".detalleCertificados"
             android:exported="false" />
         <activity

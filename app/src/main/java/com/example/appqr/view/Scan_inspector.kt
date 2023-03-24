@@ -1,32 +1,20 @@
 package com.example.appqr.view
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.startActivity
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.example.appqr.R
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.detalleCertificados
 import com.example.appqr.model.apiService
-import com.example.appqr.model.data
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.example.appqr.model.dataCert
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +22,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
 import java.util.*
 
 class Scan_inspector : AppCompatActivity() {
@@ -52,7 +39,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
 
-    private val lista_par_certf = mutableListOf<data>()
+    private val lista_par_certf = mutableListOf<dataCert>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val builder = AlertDialog.Builder(this)
@@ -105,7 +92,7 @@ class Scan_inspector : AppCompatActivity() {
             }else{
                 Toast.makeText(this,"Valor del scanner ${resultado.contents}", Toast.LENGTH_SHORT).show()
                 datos = resultado.contents
-                buscarDatos(datos)
+                buscardatosretrofit(datos)
 
 
             }
@@ -116,227 +103,15 @@ class Scan_inspector : AppCompatActivity() {
     }
 
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-    @SuppressLint("SuspiciousIndentation")
-    private fun buscarDatos(dato: String){
 
-        val db = Firebase.firestore
-  //      val datosUser = db.collection("user")
-//        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
-
-        db.collection("user")
-            .whereEqualTo(FieldPath.documentId(),dato)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-
-                    if(document.data["url"].toString().length == 0){
-                        binding.estadoresult.setText("No cuenta con certificado")
-                        binding.visualizar.visibility= View.INVISIBLE
-                        binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-                    }else{
-                        if(document.data["fecha vigencia"]!=null) {
-
-                            var date = document . getDate ("fecha vigencia")
-                            val currentTime = Calendar.getInstance().time
-                            if (currentTime <= date) {
-                                val sdf = SimpleDateFormat("dd/MM/yy")
-                                val current = sdf.format(date)
-                                val diff: Long = (date?.getTime() ?:currentTime.getTime()) - currentTime.getTime()
-                                val seconds = diff / 1000
-                                val minutes = seconds / 60
-                                val hours = minutes / 60
-                                val days = hours / 24
-                                if (days<30){
-                                    binding.estadoresult.setText("Certificado activo ,renovacion urgente ")
-                                    binding.constraintLayout3.setBackgroundColor(Color.parseColor("#FF7E00"))
-
-                                }
-                                else{
-                                    binding.estadoresult.setText("Certificado activo ")
-                                    binding.constraintLayout3.setBackgroundColor(Color.parseColor("#609f1c"))
-                                }
-                                binding.fecharesult.setText(current)
-                                binding.visualizar.visibility= View.VISIBLE
-
-                            }
-                            else {
-                                binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
-                                val sdf = SimpleDateFormat("dd/MM/yy")
-                                val current = sdf.format(date)
-                                binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-                                binding.fecharesult.setText(current)
-                                binding.visualizar.visibility = View.VISIBLE
-                            }
-
-                        }
-                        else {
-                            binding.estadoresult.setText("Certificado sin fecha actualizada")
-                            binding.visualizar.visibility= View.VISIBLE
-                            binding.fecharesult.setText("")
-                            binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-
-                        }
-
-
-                    }
-
-                    if (document == null){
-                        binding.estadoresult.setText("Codgi QR de certificado no valido")
-                        binding.fecharesult.setText("")
-                        binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-
-                    }
-
-                    binding.visualizar.setOnClickListener(){
-                        buscarUrl(document.data["url"].toString())}
-
-                    println("datos mapeo----------------------- ${document.data["url"].toString().length}")
-                    Log.d(TAG, "${document.id} => ${document.data}")
-
-
-
-                }
-
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
-        //nombresU = datosUser["nombres"].toString()
-
-        //binding.tvNombres.setText(nombresU)
-    }
-    private fun buscarCertificado(numero: String){
-
-        val db = Firebase.firestore
-        //      val datosUser = db.collection("user")
-//        val query1 = datosUser.whereEqualTo("codigo",binding.tvDatos).get()
-
-        db.collection("user")
-            .whereEqualTo("codigo",numero)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-
-                    if(document.data["url"].toString().length == 0){
-                        binding.estadoresult.setText("No cuenta con certificado")
-                        binding.visualizar.visibility= View.INVISIBLE
-                        binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-                    }else{
-                        if(document.data["fecha vigencia"]!=null) {
-
-                            var date = document . getDate ("fecha vigencia")
-                            val currentTime = Calendar.getInstance().time
-                            if (currentTime <= date) {
-                                val sdf = SimpleDateFormat("dd/MM/yy")
-                                val current = sdf.format(date)
-                                val diff: Long = (date?.getTime() ?:currentTime.getTime()) - currentTime.getTime()
-                                val seconds = diff / 1000
-                                val minutes = seconds / 60
-                                val hours = minutes / 60
-                                val days = hours / 24
-                                if (days<30){
-                                    binding.estadoresult.setText("Certificado activo ,renovacion urgente ")
-                                    binding.constraintLayout3.setBackgroundColor(Color.parseColor("#FF7E00"))
-
-                                }
-                                else{
-                                    binding.estadoresult.setText("Certificado activo ")
-                                    binding.constraintLayout3.setBackgroundColor(Color.parseColor("#609f1c"))
-                                }
-                                binding.fecharesult.setText(current)
-                                binding.visualizar.visibility= View.VISIBLE
-
-                            }
-                            else {
-                                binding.estadoresult.setText("Certificano inactivo por fecha de vigencia")
-                                val sdf = SimpleDateFormat("dd/MM/yy")
-                                val current = sdf.format(date)
-                                binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-                                binding.fecharesult.setText(current)
-                                binding.visualizar.visibility = View.VISIBLE
-                            }
-
-                        }
-                        else {
-                            binding.estadoresult.setText("Certificado sin fecha actualizada")
-                            binding.visualizar.visibility= View.VISIBLE
-                            binding.fecharesult.setText("")
-                            binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-
-                        }
-
-
-                    }
-
-                    if (document == null){
-                        binding.estadoresult.setText("Codgi QR de certificado no valido")
-                        binding.fecharesult.setText("")
-                        binding.constraintLayout3.setBackgroundColor(Color.parseColor("#cb0e00"))
-
-
-                    }
-
-                    binding.visualizar.setOnClickListener(){
-                        buscarUrl(document.data["url"].toString())}
-
-                    println("datos mapeo----------------------- ${document.data["url"].toString().length}")
-                    Log.d(TAG, "${document.id} => ${document.data}")
-
-
-
-                }
-
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
-        //nombresU = datosUser["nombres"].toString()
-
-        //binding.tvNombres.setText(nombresU)
-       /*//comenzar la api rest de php
-        val queue=Volley.newRequestQueue(this)
-        val url="https://proyectosti.muniate.gob.pe/certificados_apps/conexiones_php/consultar.php"
-        var jsonObjectRequest= JsonObjectRequest(
-            Request.Method.GET,url,null,
-            Response.Listener { response ->
-                try {
-                    var jsonArray=response.getJSONArray("data")
-                    for(i in 0 until jsonArray.length() ){
-                        var jsonObject=jsonArray.getJSONObject(i)
-                        val registro=
-                            LayoutInflater.from(this).inflate(R.layout.deployconsulta,null,false)
-                        val colNombre=registro.findViewById<View>(R.id.colNombre) as TextView
-                        val colEmail=registro.findViewById<View>(R.id.colEmail) as TextView
-                        val colEditar=registro.findViewById<View>(R.id.colEditar)
-                        val colBorrar=registro.findViewById<View>(R.id.colBorrar)
-                        colNombre.text=jsonObject.getString("nombre")
-                        colEmail.text=jsonObject.getString("email")
-                        colEditar.id=jsonObject.getString("id").toInt()
-                        colBorrar.id=jsonObject.getString("id").toInt()
-                        tbUsuarios?.addView(registro)
-                    }
-                }catch (e: JSONException){
-                    e.printStackTrace()
-                }
-            },Response.ErrorListener { error ->
-
-            }
-        )
-        queue.add(jsonObjectRequest)
-        //terminar la api rest de php*/
-
-    }
     private fun buscardatosretrofit(dato:String){
         getRetrofit()
 
         CoroutineScope(Dispatchers.IO).launch {
             GlobalScope.launch {
-                val result = getRetrofit().create(apiService::class.java). getQuotes("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+                val result = getRetrofit().create(apiService::class.java). getDataCert("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+           //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
+
                 val certpar=result.body()
                 runOnUiThread{
                     if (result != null) {

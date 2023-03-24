@@ -2,11 +2,16 @@ package com.example.appqr.model
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface apiService {
 
     @GET
-    suspend fun getQuotes(@Url url: String) : Response<data>
+    suspend fun getDataCert(@Url url:String) : Response<dataCert>
+    @GET
+    suspend fun getValidUser(@Url url:String) : Response<dataUser>
+
+
 }
 

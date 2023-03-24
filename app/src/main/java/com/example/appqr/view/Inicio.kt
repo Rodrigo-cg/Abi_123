@@ -19,9 +19,9 @@ class Inicio : AppCompatActivity() {
         binding = ActivityInicioBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("APP QR ")
-        setSupportActionBar(tolls)
+       // tolls = findViewById(R.id.mytoolbar)
+        //tolls.setTitle("APP QR ")
+        //setSupportActionBar(tolls)
         binding.btnIngresarAuth.setOnClickListener(){
             val intent = Intent(this, login::class.java)
             startActivity(intent)
