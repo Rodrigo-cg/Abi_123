@@ -27,7 +27,6 @@ class detalle_inspector : AppCompatActivity() {
     private lateinit var  certiList:ArrayList<Certificados>
     private lateinit var  adapterCerti: detalleAdapter
     private lateinit var  builder:AlertDialog.Builder
-    private lateinit var tolls: Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +35,7 @@ class detalle_inspector : AppCompatActivity() {
 
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("Detalle QR")
-        setSupportActionBar(tolls)
+
         binding.btnSeach.setOnClickListener(){
             buscarCertificados(binding.etDNI.text.toString())
             contador = 0

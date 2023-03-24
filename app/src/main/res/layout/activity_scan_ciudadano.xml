@@ -46,7 +46,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/custom_toolbar"></include>
 
 
     <Button

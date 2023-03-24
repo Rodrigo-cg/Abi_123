@@ -51,13 +51,15 @@ class Scan_inspector : AppCompatActivity() {
         }
         builder.show()
         binding = ActivityScanInspectorBinding.inflate(layoutInflater)
-        binding.btnDetalle.visibility= View.INVISIBLE
 
+
+        //<include layout="@layout/custom_toolbar"></include>
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("APP QR INSPECTOR")
-        setSupportActionBar(tolls)
+        binding.datacert.visibility= View.INVISIBLE
+        //tolls = findViewById(R.id.mytoolbar)
+        //tolls.setTitle("APP QR INSPECTOR")
+        //setSupportActionBar(tolls)
          binding.btnScan.setOnClickListener(){
              binding.visualizar.visibility= View.INVISIBLE
              binding.fecharesult.setText("")
@@ -68,15 +70,7 @@ class Scan_inspector : AppCompatActivity() {
             //buscarCertificado(binding.etNumeros.text.toString())
             buscardatosretrofit(binding.etNumeros.text.toString())
         }
-        binding.btnDetalle.setOnClickListener(){
-            /*
-            *    val intent =  Intent(Intent.ACTION_VIEW,Uri.parse("$links"))
-            startActivity(intent)
-            * */
 
-            //val intento = Intent(this,detalle_inspector::class.java)
-            //startActivity(intento)
-        }
 
     }
     private  fun initScan(){
@@ -122,9 +116,9 @@ class Scan_inspector : AppCompatActivity() {
                          Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
                          direccion= certpar?.Direccion ?:"No exite en base de datos"
                          zona= certpar?.Zona_Urbana ?:"No exite en base de datos"
-                            binding.btnDetalle.visibility= View.VISIBLE
+                            binding.datacert.visibility= View.VISIBLE
 
-                        binding.btnDetalle.setOnClickListener(){
+                        binding.datacert.setOnClickListener(){
                             initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona)
                         }
 

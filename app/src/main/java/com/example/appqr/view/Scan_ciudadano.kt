@@ -35,9 +35,7 @@ class Scan_ciudadano : AppCompatActivity() {
         binding = ActivityScanCiudadanoBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("APP QR CIUDADANO ")
-        setSupportActionBar(tolls)
+
         binding.btnScan.setOnClickListener(){
             binding.fecharesult.setText("")
 

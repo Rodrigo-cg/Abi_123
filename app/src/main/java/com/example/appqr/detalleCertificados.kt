@@ -9,16 +9,14 @@ import com.example.appqr.databinding.DetalleInspectorBinding
 
 class detalleCertificados : AppCompatActivity() {
     private lateinit var   binding: ActivityDetalleCertificadosBinding
-    private lateinit var tolls: Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleCertificadosBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
-        tolls.setTitle("DETALLES CERTIFICADO")
-        setSupportActionBar(tolls)
+
         val Estado = intent.getStringExtra("Estado")
         val lic_func = intent.getStringExtra("lic_func")
         val Nombre_razon = intent.getStringExtra("Nombre_razon")

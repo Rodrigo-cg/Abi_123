@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.appqr.R
 import com.example.appqr.detalle_inspector
 import com.example.appqr.model.apiService
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -29,7 +30,6 @@ class login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val btningresar : Button = findViewById(R.id.btningresar)
-        val btnListado : Button = findViewById(R.id.btnListado)
         val txtemail : TextView = findViewById(R.id.edtEmail)
         val  txtpass : TextView = findViewById(R.id.edtPassword)
         firebaseAuth= Firebase.auth
@@ -38,30 +38,12 @@ class login : AppCompatActivity() {
             validarSession(txtemail.text.toString(),txtpass.text.toString())
         }
 
-        btnListado.setOnClickListener(){
 
-            val intento = Intent(this,detalle_inspector::class.java)
-            startActivity(intento)
-        }
+
 
 
     }
-    private fun signIn(email: String, password: String)
-    {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){
-                task ->
-            if (task.isSuccessful){
-                val user = firebaseAuth.currentUser
-                Toast.makeText(baseContext,"Bienvenido...", Toast.LENGTH_SHORT).show()
-                //Aqui vamos a ir a la otra pollada
-                val i = Intent(this,Scan_inspector::class.java)
-                startActivity(i)
-            }
-            else
-                Toast.makeText(baseContext,"Error de Email y/o contraseña", Toast.LENGTH_SHORT).show()
-        }
 
-    }
 
     private fun validarSession(user:String, pass:String){
         try {
@@ -78,6 +60,13 @@ class login : AppCompatActivity() {
                         showToast("Login")
                         if(User.equals(user) && Password.equals(pass))
                             initActivity(User)
+                        else
+                        {
+                            val passwordLayout:TextInputLayout=findViewById(R.id.textInputLayout)
+                            passwordLayout.error = "Datos incorrectos"
+                            val passwordLayout2:TextInputLayout=findViewById(R.id.textField)
+                            passwordLayout2.error = "Datos incorrectos"
+                        }
                     }else{
 
                         showToast("Error al validar usuario")
