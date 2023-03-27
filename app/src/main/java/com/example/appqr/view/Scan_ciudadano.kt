@@ -42,8 +42,11 @@ class Scan_ciudadano : AppCompatActivity() {
             initScan()
         }
 
-        binding.etTexto.setEndIconOnClickListener(){
+        binding.btnlupa.setOnClickListener(){
+            //Toast.makeText(this , "date", Toast.LENGTH_SHORT).show()
+
             buscarCertificado(binding.etNumeros.text.toString())
+
         }
 
     }

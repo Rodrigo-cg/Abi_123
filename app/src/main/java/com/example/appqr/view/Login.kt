@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.appqr.R
-import com.example.appqr.detalle_inspector
 import com.example.appqr.model.apiService
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -31,7 +30,7 @@ class login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         val btningresar : Button = findViewById(R.id.btningresar)
         val txtemail : TextView = findViewById(R.id.edtEmail)
-        val  txtpass : TextView = findViewById(R.id.edtPassword)
+        val  txtpass : TextView = findViewById(R.id.etNumeros)
         firebaseAuth= Firebase.auth
         btningresar.setOnClickListener()
         {
@@ -56,8 +55,7 @@ class login : AppCompatActivity() {
                         User = users?.id_user ?: "No hay user"
                         Password = users?.clave ?: "No hay contraseña"
                         Error = users?.Error ?: "No hay error"
-                        showToast("$User -$Password - $user - $pass")
-                        showToast("Login")
+
                         if(User.equals(user) && Password.equals(pass))
                             initActivity(User)
                         else

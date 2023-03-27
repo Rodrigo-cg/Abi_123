@@ -6,28 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.Inicio">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="334dp"
-        android:layout_height="254dp"
-        android:layout_marginTop="48dp"
-        android:src="@drawable/logoapp23"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnIngresarCiudadano"
-        android:layout_width="160dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/btnIngresar_cliente"
-        app:cornerRadius="10dp"
-        app:backgroundTint="@null"
+        android:layout_marginTop="96dp"
         android:background="@drawable/btn1"
+        android:text="@string/btnIngresar_cliente"
+        app:backgroundTint="@null"
 
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:rippleColor="#C33F3F" />
@@ -35,7 +25,7 @@
     <Button
         android:id="@+id/btnIngresarAuth"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="160dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/btn3"
@@ -52,7 +42,7 @@
         android:id="@+id/view2"
         android:layout_width="118dp"
         android:layout_height="7dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="160dp"
         android:background="@drawable/btn1"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,14 +60,34 @@
         app:layout_constraintTop_toBottomOf="@+id/btnIngresarAuth"
         tools:ignore="MissingConstraints" />
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="13dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/fondo2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="241dp"
         android:layout_height="121dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="160dp"
         android:src="@drawable/logo2023_png"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIngresarAuth" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="231dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/titulo"
+        app:layout_constraintStart_toEndOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,8 @@ import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.detalleCertificados
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
+import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.annotations.SerializedName
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +38,12 @@ class Scan_inspector : AppCompatActivity() {
     private var Nombre_Razon= ""
     private var direccion= ""
     private var zona= ""
+    private var Num_Res= ""
+    private var  Num_Exp= ""
+    private var  Giro= ""
+    private var  Area= ""
+    private var  Fecha_Exp= ""
+    private var  Fecha_Caducidad= ""
 
 
 
@@ -66,7 +74,7 @@ class Scan_inspector : AppCompatActivity() {
 
              initScan()
          }
-        binding.etTexto.setEndIconOnClickListener(){
+        binding.btnlupa.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
             buscardatosretrofit(binding.etNumeros.text.toString())
         }
@@ -115,12 +123,27 @@ class Scan_inspector : AppCompatActivity() {
                          Lic_func= certpar?.Lic_Func ?:"No exite en base de datos"
                          Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
                          direccion= certpar?.Direccion ?:"No exite en base de datos"
-                         zona= certpar?.Zona_Urbana ?:"No exite en base de datos"
-                            binding.datacert.visibility= View.VISIBLE
+                         zona           = certpar?.Zona_Urbana ?:"No exite en base de datos"
+                        Num_Res         =  certpar?.Num_Res?:"No exite en base de datos"
+                        Num_Exp         = certpar?.Num_Exp?:"No exite en base de datos"
+                        Giro            = certpar?.Giro?:"No exite en base de datos"
+                        Area            = certpar?.Area?:"No exite en base de datos"
+                        Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
+                        Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
 
-                        binding.datacert.setOnClickListener(){
-                            initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona)
+                        if(Lic_func.equals(dato)){
+                            binding.datacert.visibility= View.VISIBLE
+                            binding.datacert.setOnClickListener(){
+                                initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona,Num_Res,Num_Exp,Giro,Area,Fecha_Exp,Fecha_Caducidad)
+                            }
                         }
+                        else
+                        {
+                            val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                            passwordLayout.error = "Datos incorrectos"
+                        }
+
+
 
                         binding.estadoresult.setText(Estado)
                     }else
@@ -144,13 +167,29 @@ class Scan_inspector : AppCompatActivity() {
             startActivity(intent)
 
     }
-    private fun initActivity(estado:String,lic_func:String,Nombre_razon:String,Direccion:String,Zona:String) {
+    private fun initActivity(estado:String
+                             ,lic_func:String
+                             ,Nombre_razon:String
+                             ,Direccion:String
+                             ,Zona:String
+                             ,Num_Res        :String
+                             ,Num_Exp        :String
+                             ,Giro           :String
+                             ,Area           :String
+                             ,Fecha_Exp      :String
+                             ,Fecha_Caducidad:String) {
         val i = Intent(this,detalleCertificados::class.java).apply {
             putExtra("Estado",estado)
             putExtra("lic_func",lic_func)
             putExtra("Nombre_razon",Nombre_razon)
             putExtra("Direccion",Direccion)
             putExtra("Zona",Zona)
+            putExtra("Num_Res        ",Num_Res        )
+            putExtra("Num_Exp        ",Num_Exp        )
+            putExtra("Giro           ",Giro           )
+            putExtra("Area           ",Area           )
+            putExtra("Fecha_Exp      ",Fecha_Exp      )
+            putExtra("Fecha_Caducidad",Fecha_Caducidad)
 
 
 

@@ -4,20 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Scan_inspector">
+    tools:context=".view.Scan_ciudadano">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+
+        style="?attr/textInputFilledStyle"
+        android:layout_width="361dp"
+        android:layout_height="88dp"
+        android:hint="N° de certificado"
+        android:paddingLeft="65dp"
+        android:paddingTop="20dp"
+        android:paddingRight="0dp"
+        app:boxBackgroundColor="#FFFFFF"
+        app:boxStrokeColor="#C1255B"
+        app:endIconContentDescription="dfd"
+        app:endIconMode="custom"
+        app:errorEnabled="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNumeros"
+            android:layout_width="281dp"
+            android:layout_height="59dp"
+
+            android:paddingLeft="60dp"
+            android:paddingRight="30dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="65dp"
+        android:text="Verificar certificado"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_left_24" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Volver"
+        android:textColor="#C1255B"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="282dp"
-        android:layout_height="108dp"
+        android:id="@+id/constraintLayout3"
+        android:layout_width="279dp"
+        android:layout_height="110dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/btn3"
+        android:background="@drawable/btn4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
+        app:layout_constraintTop_toBottomOf="@+id/btnScan">
 
         <TextView
             android:id="@+id/estadocertifi"
@@ -30,7 +93,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/Estado" />
-
 
         <TextView
             android:id="@+id/estadoresult"
@@ -46,77 +108,83 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     <Button
         android:id="@+id/btnScan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/btn3"
-        android:text="@string/scan_qr"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/btn1"
+        android:text="Escanear QR"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="260dp"
-        android:layout_height="93dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/btn3"
+    <Button
+        android:id="@+id/visualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/btn1"
+        android:text="Visualizar certificado"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTexto">
+        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField" />
 
-        <TextView
-            android:id="@+id/fechavigencia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/fecha_vigencia"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/datacert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn1"
+        android:text="Detallar Certificado"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visualizar" />
 
-        <TextView
-            android:id="@+id/fecharesult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fechavigencia" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/fechavigencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="10dp"
+        android:text="Fecha de expedicion"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etTexto"
-        android:layout_width="0dp"
+        android:id="@+id/outlinedTextField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/lupa"
-        app:endIconContentDescription="@string/lupa"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScan">
+        android:paddingStart="50dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="50dp"
+        app:hintEnabled="false"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/fechavigencia">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNumeros"
-
+            android:id="@+id/fecharesult"
             android:layout_width="match_parent"
-            android:inputType="number"
-            android:layout_height="wrap_content"
-            android:hint="@string/num_certificado" />
+            android:layout_height="wrap_content" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/btnlupa"
+        android:layout_width="74dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="50dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:srcCompat="@drawable/botoncompleto" />
 </androidx.constraintlayout.widget.ConstraintLayout>
