@@ -13,6 +13,7 @@ import com.example.appqr.R
 
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.detalleCertificados
+import com.example.appqr.list
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
 import com.google.android.material.textfield.TextInputLayout
@@ -157,7 +158,8 @@ class Scan_inspector : AppCompatActivity() {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://proyectosti.muniate.gob.pe/")
+            // .baseUrl("https://proyectosti.muniate.gob.pe/")
+            .baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -178,7 +180,7 @@ class Scan_inspector : AppCompatActivity() {
                              ,Area           :String
                              ,Fecha_Exp      :String
                              ,Fecha_Caducidad:String) {
-        val i = Intent(this,detalleCertificados::class.java).apply {
+        val i = Intent(this,list::class.java).apply {
             putExtra("Estado",estado)
             putExtra("lic_func",lic_func)
             putExtra("Nombre_razon",Nombre_razon)

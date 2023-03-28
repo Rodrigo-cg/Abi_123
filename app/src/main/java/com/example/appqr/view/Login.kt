@@ -19,8 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class login : AppCompatActivity() {
-    private lateinit var firebaseAuth:FirebaseAuth
-    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
     private var User=""
     private var Password=""
     private var Error=""
@@ -28,10 +26,10 @@ class login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         val btningresar : Button = findViewById(R.id.btningresar)
         val txtemail : TextView = findViewById(R.id.edtEmail)
         val  txtpass : TextView = findViewById(R.id.etNumeros)
-        firebaseAuth= Firebase.auth
         btningresar.setOnClickListener()
         {
             validarSession(txtemail.text.toString(),txtpass.text.toString())
@@ -85,7 +83,8 @@ class login : AppCompatActivity() {
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://proyectosti.muniate.gob.pe/")
+           // .baseUrl("https://proyectosti.muniate.gob.pe/")
+            .baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
