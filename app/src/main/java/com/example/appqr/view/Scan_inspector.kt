@@ -180,7 +180,7 @@ class Scan_inspector : AppCompatActivity() {
                              ,Area           :String
                              ,Fecha_Exp      :String
                              ,Fecha_Caducidad:String) {
-        val i = Intent(this,list::class.java).apply {
+        val i = Intent(this@Scan_inspector,list::class.java).apply {
             putExtra("Estado",estado)
             putExtra("lic_func",lic_func)
             putExtra("Nombre_razon",Nombre_razon)
