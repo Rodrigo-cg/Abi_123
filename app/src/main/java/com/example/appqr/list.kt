@@ -32,7 +32,7 @@ class list : AppCompatActivity() {
 
 
 
-        val nameList = arrayOf("Nombre", "Giro", "Àrea", "Direccioòn", "Fecha de Expediciòn", "Número de Expediente", "Nùmero de Resoluciòn", "Nùmero de Certificado","Fecha de caducidad")
+        val nameList = arrayOf("Nombre", "Giro", "Área", "Dirección", "Fecha de Expedición", "Número de Expediente", "Número de Resolución", "Número de Certificado","Fecha de caducidad")
         val timeList = arrayOf(Nombre_razon, Giro, Area, Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad)
         for (i in nameList.indices) {
             listData = dataList(

@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/part_cert_name"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="12dp"
