@@ -12,8 +12,8 @@
 
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="18dp"
         android:layout_marginBottom="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/baseline_circle_24" />
@@ -36,7 +36,7 @@
         android:layout_below="@+id/part_cert_name"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="102dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="28dp" />
 

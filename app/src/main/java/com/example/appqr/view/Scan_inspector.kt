@@ -133,6 +133,14 @@ class Scan_inspector : AppCompatActivity() {
                         Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
 
                         if(Lic_func.equals(dato)){
+                            if(Estado.equals("VIGENTE")){
+                                binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
+                                binding.fecharesult.setBackgroundColor(R.drawable.btn3)
+                            }
+                            else {
+                                //binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
+                                //binding.fecharesult.setText(Fecha_Exp)
+                            }
                             binding.datacert.visibility= View.VISIBLE
                             binding.datacert.setOnClickListener(){
                                 initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona,Num_Res,Num_Exp,Giro,Area,Fecha_Exp,Fecha_Caducidad)
@@ -158,8 +166,8 @@ class Scan_inspector : AppCompatActivity() {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            // .baseUrl("https://proyectosti.muniate.gob.pe/")
-            .baseUrl("https://delorekbyrnison.000webhostapp.com/")
+             .baseUrl("https://proyectosti.muniate.gob.pe/")
+            //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -186,11 +194,11 @@ class Scan_inspector : AppCompatActivity() {
             putExtra("Nombre_razon",Nombre_razon)
             putExtra("Direccion",Direccion)
             putExtra("Zona",Zona)
-            putExtra("Num_Res        ",Num_Res        )
-            putExtra("Num_Exp        ",Num_Exp        )
-            putExtra("Giro           ",Giro           )
-            putExtra("Area           ",Area           )
-            putExtra("Fecha_Exp      ",Fecha_Exp      )
+            putExtra("Num_Res",Num_Res        )
+            putExtra("Num_Exp",Num_Exp        )
+            putExtra("Giro",Giro           )
+            putExtra("Area",Area           )
+            putExtra("Fecha_Exp",Fecha_Exp      )
             putExtra("Fecha_Caducidad",Fecha_Caducidad)
 
 

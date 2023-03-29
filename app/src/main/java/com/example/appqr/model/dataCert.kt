@@ -12,7 +12,7 @@ data class dataCert(
     @SerializedName("Esp.") val Num_Exp: String? = null,
     @SerializedName("Giro") val Giro: String? = null,
     @SerializedName("Area") val Area: String? = null,
-    @SerializedName("Fecha_Exp") val Fecha_Exp: String? = null,
+    @SerializedName("Fech_Exp") val Fecha_Exp: String? = null,
     @SerializedName("Beneficio") val Fecha_Caducidad: String? = null,
 
 

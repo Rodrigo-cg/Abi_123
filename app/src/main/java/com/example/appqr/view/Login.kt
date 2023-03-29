@@ -83,8 +83,8 @@ class login : AppCompatActivity() {
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-           // .baseUrl("https://proyectosti.muniate.gob.pe/")
-            .baseUrl("https://delorekbyrnison.000webhostapp.com/")
+            .baseUrl("https://proyectosti.muniate.gob.pe/")
+            //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

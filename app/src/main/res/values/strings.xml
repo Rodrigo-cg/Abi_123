@@ -9,4 +9,5 @@
     <string name="Estado">Estado de certificado</string>
     <string name="num_certificado">Nº de Certificado</string>
     <string name="lupa">Buscar Certificado</string>
+    <string name="mail_subheader_title">a</string>
 </resources>

@@ -10,26 +10,29 @@
         android:id="@+id/textInputLayout"
 
         style="?attr/textInputFilledStyle"
-        android:layout_width="361dp"
+        android:layout_width="0dp"
         android:layout_height="88dp"
         android:hint="N° de certificado"
         android:paddingLeft="65dp"
         android:paddingTop="20dp"
-        android:paddingRight="0dp"
+        android:paddingRight="65dp"
         app:boxBackgroundColor="#FFFFFF"
         app:boxStrokeColor="#C1255B"
         app:endIconContentDescription="dfd"
         app:endIconMode="custom"
         app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNumeros"
-            android:layout_width="281dp"
-            android:layout_height="59dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-            android:paddingLeft="60dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="0dp"
             android:paddingRight="30dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -40,7 +43,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="65dp"
         android:text="Verificar certificado"
-        android:textSize="34sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton" />
@@ -57,25 +60,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_left_24" />
 
+
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="28dp"
         android:text="Volver"
         android:textColor="#C1255B"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="279dp"
+        android:layout_width="0dp"
         android:layout_height="110dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="65dp"
         android:background="@drawable/btn4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -112,13 +117,13 @@
         android:id="@+id/btnScan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="60dp"
-        android:background="@drawable/btn1"
-        android:paddingTop="15dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="65dp"
         android:text="Escanear QR"
         app:backgroundTint="@null"
+        android:background="@drawable/btn1"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,12 +142,17 @@
         app:layout_constraintTop_toBottomOf="@+id/outlinedTextField" />
 
     <Button
+
         android:id="@+id/datacert"
-        android:layout_width="wrap_content"
+        app:backgroundTint="@null"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="65dp"
         android:text="Detallar Certificado"
         android:visibility="invisible"
+        android:background="@drawable/btn1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/visualizar" />
@@ -151,7 +161,7 @@
         android:id="@+id/fechavigencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="8dp"
         android:paddingTop="10dp"
         android:text="Fecha de expedicion"
@@ -163,16 +173,17 @@
         android:id="@+id/outlinedTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="50dp"
+        android:paddingStart="65dp"
         android:paddingTop="15dp"
-        android:paddingEnd="50dp"
+        android:paddingEnd="65dp"
         app:hintEnabled="false"
-        android:enabled="false"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fechavigencia">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fecharesult"
             android:layout_width="match_parent"
+            android:text="18/03/23"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -187,4 +198,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
         app:srcCompat="@drawable/botoncompleto" />
+
+
+
+    <!--
+      <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation_drawer"
+        app:layout_constraintTop_toTopOf="parent" />
+-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
