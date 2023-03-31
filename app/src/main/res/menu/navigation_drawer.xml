@@ -18,7 +18,7 @@
                 android:id="@+id/favourites_item"
                 android:icon="@drawable/baseline_inbox_24"
                 android:title="C"
-                android:checkable="true">
+                android:checkable="true"/>
         </menu>
     </item>
 </menu>

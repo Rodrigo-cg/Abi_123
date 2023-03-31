@@ -1,10 +1,13 @@
 package com.example.appqr.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -27,6 +30,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
+@Suppress("DEPRECATION")
 class Scan_inspector : AppCompatActivity() {
 
     private lateinit var   binding:ActivityScanInspectorBinding
@@ -49,6 +53,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
     private val lista_par_certf = mutableListOf<dataCert>()
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val builder = AlertDialog.Builder(this)
@@ -66,20 +71,44 @@ class Scan_inspector : AppCompatActivity() {
 
         setContentView(binding.root)
         binding.datacert.visibility= View.INVISIBLE
-        //tolls = findViewById(R.id.mytoolbar)
-        //tolls.setTitle("APP QR INSPECTOR")
-        //setSupportActionBar(tolls)
+        binding.fecharesult1.setText("")
+        binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
+        tolls = findViewById(R.id.mytoolbar)
+        setSupportActionBar(tolls);
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+        //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
+        //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        tolls.setBackgroundColor(android.R.color.transparent)
+        tolls.setNavigationIcon(R.drawable.baseline_arrow_left_24)
+        //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
+        //val display=setSupportActionBar(tolls)
+
          binding.btnScan.setOnClickListener(){
              binding.visualizar.visibility= View.INVISIBLE
-             binding.fecharesult.setText("")
+             binding.fecharesult1.setText("")
+             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
 
              initScan()
          }
         binding.btnlupa.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
+            binding.fecharesult1.setText("")
+            binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
             buscardatosretrofit(binding.etNumeros.text.toString())
         }
 
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            android.R.id.home->{
+                finish()
+                true
+            }
+            else ->super.onOptionsItemSelected(item)
+        }
 
     }
     private  fun initScan(){
@@ -135,11 +164,17 @@ class Scan_inspector : AppCompatActivity() {
                         if(Lic_func.equals(dato)){
                             if(Estado.equals("VIGENTE")){
                                 binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
-                                binding.fecharesult.setBackgroundColor(R.drawable.btn3)
+                                //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
+                                binding.fecharesult1.setText(Fecha_Exp)
+                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                                passwordLayout.error = null
+
                             }
                             else {
-                                //binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
-                                //binding.fecharesult.setText(Fecha_Exp)
+                                binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
+                                binding.fecharesult1.setText(Fecha_Exp)
+                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                                passwordLayout.error = null
                             }
                             binding.datacert.visibility= View.VISIBLE
                             binding.datacert.setOnClickListener(){
