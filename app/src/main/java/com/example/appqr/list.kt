@@ -50,7 +50,7 @@ class list : AppCompatActivity() {
         }
         listAdapter = ListCertAdapter(this, dataArrayList)
         binding.listview.adapter = listAdapter
-
+  //
         }
 
 
