@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".view.Scan_ciudadano">
 
-    <include layout="@layout/custom_toolbar"></include>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_left_24"
+        app:title="Volver"
+
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        app:titleTextColor="@color/atecolor" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"

@@ -37,14 +37,18 @@ class login : AppCompatActivity() {
         val txtemail : TextView = findViewById(R.id.edtEmail)
         val  txtpass : TextView = findViewById(R.id.etNumeros)
 
-        tolls = findViewById(R.id.mytoolbar)
-        setSupportActionBar(tolls);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
+        tolls = findViewById(R.id.topAppBar)
+        //setSupportActionBar(tolls);
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        tolls.setBackgroundColor(android.R.color.transparent)
-        tolls.setNavigationIcon(R.drawable.baseline_arrow_left_24)
+        //tolls.setBackgroundColor(android.R.color.transparent)
+        tolls.setNavigationOnClickListener(){
+
+                    finish()
+
+        }
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
         //val display=setSupportActionBar(tolls)
         btningresar.setOnClickListener()

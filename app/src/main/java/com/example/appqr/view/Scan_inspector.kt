@@ -73,14 +73,16 @@ class Scan_inspector : AppCompatActivity() {
         binding.datacert.visibility= View.INVISIBLE
         binding.fecharesult1.setText("")
         binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
-        tolls = findViewById(R.id.mytoolbar)
-        setSupportActionBar(tolls);
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+        //getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        //getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        tolls.setBackgroundColor(android.R.color.transparent)
-        tolls.setNavigationIcon(R.drawable.baseline_arrow_left_24)
+        tolls = findViewById(R.id.topAppBar3)
+        tolls.setNavigationOnClickListener(){
+
+            finish()
+
+        }
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
         //val display=setSupportActionBar(tolls)
 

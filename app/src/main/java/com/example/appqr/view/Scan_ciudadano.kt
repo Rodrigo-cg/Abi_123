@@ -59,16 +59,16 @@ class Scan_ciudadano : AppCompatActivity() {
         binding = ActivityScanCiudadanoBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        tolls = findViewById(R.id.mytoolbar)
+        tolls = findViewById(R.id.topAppBar2)
         binding.fecharesult1.setText("")
         binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
-        setSupportActionBar(tolls);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        tolls.setBackgroundColor(android.R.color.transparent)
-        tolls.setNavigationIcon(R.drawable.baseline_arrow_left_24)
+        tolls.setNavigationOnClickListener(){
+
+            finish()
+
+        }
         binding.btnScan.setOnClickListener(){
             binding.fecharesult1.setText("")
             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)

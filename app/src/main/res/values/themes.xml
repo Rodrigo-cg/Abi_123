@@ -32,5 +32,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ActionBar.nameText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">36dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".view.Scan_inspector">
 
-    <include layout="@layout/custom_toolbar"></include>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar3"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/baseline_arrow_left_24"
+        app:title="Volver"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+
+        app:titleTextColor="@color/atecolor"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
