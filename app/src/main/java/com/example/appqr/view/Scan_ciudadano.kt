@@ -124,10 +124,19 @@ class Scan_ciudadano : AppCompatActivity() {
             @SuppressLint("ResourceAsColor")
             private fun buscarCertificado(dato:String){
                 getRetrofit()
+                var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+                val select = binding.Rgroup.getCheckedRadioButtonId()
+                if(select==binding.r1.id){
+                    url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+                    //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
 
+                }else {
+                    url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
+
+                }
                 CoroutineScope(Dispatchers.IO).launch {
                     GlobalScope.launch {
-                        val result = getRetrofit().create(apiService::class.java). getDataCert("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+                        val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
                         //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
 
                         val certpar=result.body()

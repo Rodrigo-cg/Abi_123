@@ -11,12 +11,12 @@
         android:id="@+id/topAppBar2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_left_24"
         app:title="Volver"
-
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        app:titleTextColor="@color/atecolor" />
+
+        app:titleTextColor="@color/atecolor"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -106,7 +106,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="65dp"
         android:background="@drawable/btn1"
         android:text="Escanear QR"
@@ -115,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/Rgroup" />
 
     <Button
         android:id="@+id/visualizar"
@@ -184,6 +183,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fechavigencia" />
 
+    <RadioGroup
+        android:id="@+id/Rgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+        <RadioButton
+            android:id="@+id/r1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            style="@style/Widget.App.RadioButton"
+            android:buttonTint="#CABCBC"
+            android:text="Licencia temporal"
+            app:useMaterialThemeColors="false" />
+
+        <RadioButton
+            android:id="@+id/r2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#CABCBC"
+            style="@style/Widget.App.RadioButton"
+            android:text="Licencia indeterminada" />
+    </RadioGroup>
 
     <!--
       <com.google.android.material.navigation.NavigationView

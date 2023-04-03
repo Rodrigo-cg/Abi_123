@@ -2,25 +2,21 @@ package com.example.appqr.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
-
 import com.example.appqr.databinding.ActivityScanInspectorBinding
-import com.example.appqr.detalleCertificados
 import com.example.appqr.list
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
 import com.google.android.material.textfield.TextInputLayout
-import com.google.gson.annotations.SerializedName
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +73,7 @@ class Scan_inspector : AppCompatActivity() {
         //getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        tolls = findViewById(R.id.topAppBar3)
+        tolls = findViewById(R.id.topAppBar2)
         tolls.setNavigationOnClickListener(){
 
             finish()
@@ -140,10 +136,19 @@ class Scan_inspector : AppCompatActivity() {
 
     private fun buscardatosretrofit(dato:String){
         getRetrofit()
+        var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+        val select = binding.Rgroup.getCheckedRadioButtonId()
+        if(select==binding.r1.id){
+            url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+            //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
 
+        }else {
+            url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
+
+        }
         CoroutineScope(Dispatchers.IO).launch {
             GlobalScope.launch {
-                val result = getRetrofit().create(apiService::class.java). getDataCert("certificados_apps/conexiones_php/consultar.php?LIC=$dato")
+                val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
            //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
 
                 val certpar=result.body()
