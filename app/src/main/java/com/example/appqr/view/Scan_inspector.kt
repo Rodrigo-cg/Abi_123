@@ -45,6 +45,7 @@ class Scan_inspector : AppCompatActivity() {
     private var  Area= ""
     private var  Fecha_Exp= ""
     private var  Fecha_Caducidad= ""
+    private  var dogList = mutableListOf<dataCert>()
 
 
 
@@ -143,17 +144,20 @@ class Scan_inspector : AppCompatActivity() {
         var Lic_func1: String? =""
 
         var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+        var url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+
         val select = binding.Rgroup.getCheckedRadioButtonId()
         if(select==binding.r1.id){
             //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
             Lic_func1=dato.padStart(4, '0')
             url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
+            url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
         }else {
             Lic_func1=dato.padStart(10, '0')
             url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
-
+            url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
         }
-        CoroutineScope(Dispatchers.IO).launch {
+        /*CoroutineScope(Dispatchers.IO).launch {
             GlobalScope.launch {
                 val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
            //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
@@ -210,7 +214,22 @@ class Scan_inspector : AppCompatActivity() {
 
 
             }
+            }*/
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
+            val certificados = call.body()
+            runOnUiThread {
+                if(call.isSuccessful){
+                    val  listaPerros = certificados?.datos ?: emptyList()
+
+                    dogList.clear()
+                    dogList.addAll(listaPerros)
+                    adapterMasc.notifyDataSetChanged()
+                }else{
+                    showError()
+                }
             }
+        }
         }
 
     private fun getRetrofit(): Retrofit {

@@ -11,7 +11,8 @@ interface apiService {
     suspend fun getDataCert(@Url url:String) : Response<dataCert>
     @GET
     suspend fun getValidUser(@Url url:String) : Response<dataUser>
-
+    @GET
+    suspend fun getAllcertrelacionados(@Url url:String) : Response<responseCert>
 
 }
 

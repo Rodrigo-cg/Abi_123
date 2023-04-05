@@ -208,6 +208,8 @@ class Scan_ciudadano : AppCompatActivity() {
                     }
                 }
 
+
+
             }
 
             private fun getRetrofit(): Retrofit {
