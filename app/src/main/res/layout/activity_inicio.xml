@@ -13,13 +13,13 @@
         android:layout_marginTop="64dp"
         android:background="@drawable/btn1"
         android:text="@string/btnIngresar_cliente"
-        app:backgroundTint="@null"
 
+        app:backgroundTint="@null"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:rippleColor="#C33F3F" />
 
     <Button
@@ -39,17 +39,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnIngresarCiudadano" />
 
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="10dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/fondo2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="241dp"
@@ -59,16 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIngresarAuth" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="161dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="72dp"
-        android:src="@drawable/titulo"
-        app:layout_constraintStart_toEndOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -81,4 +60,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/imagenate"
         tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="161dp"
+            android:layout_height="77dp"
+            android:layout_marginEnd="72dp"
+            android:src="@drawable/titulo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.089"
+            app:layout_constraintStart_toEndOf="@+id/view3"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="10dp"
+            android:layout_height="71dp"
+            android:background="@drawable/fondo2"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

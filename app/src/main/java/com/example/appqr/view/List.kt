@@ -1,8 +1,9 @@
-package com.example.appqr
+package com.example.appqr.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.appqr.R
 import com.example.appqr.adapter.ListCertAdapter
 import com.example.appqr.databinding.ActivityListBinding
 import com.example.appqr.model.dataList
@@ -40,7 +41,7 @@ class list : AppCompatActivity() {
 
         }
         val nameList = arrayOf("Nombre", "Giro", "Área", "Dirección", "Fecha de Expedición", "Número de Expediente", "Número de Resolución", "Número de Certificado","Fecha de caducidad")
-        val timeList = arrayOf(Nombre_razon, Giro, Area, Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad)
+        val timeList = arrayOf(Nombre_razon, Giro, Area +" m2", Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad)
         for (i in nameList.indices) {
             listData = dataList(
                 nameList[i],

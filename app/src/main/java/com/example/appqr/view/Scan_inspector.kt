@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
 import com.example.appqr.databinding.ActivityScanInspectorBinding
-import com.example.appqr.list
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.textfield.TextInputLayout
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.CoroutineScope
@@ -49,7 +49,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
     private val lista_par_certf = mutableListOf<dataCert>()
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val builder = AlertDialog.Builder(this)
@@ -82,15 +82,19 @@ class Scan_inspector : AppCompatActivity() {
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
         //val display=setSupportActionBar(tolls)
 
-         binding.btnScan.setOnClickListener(){
+         binding.btnlupa.setOnClickListener(){
+             hideKeyboard(currentFocus ?: View(this))
+
              binding.visualizar.visibility= View.INVISIBLE
              binding.fecharesult1.setText("")
              binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
 
              initScan()
          }
-        binding.btnlupa.setOnClickListener(){
+        binding.btnlupa1.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
+            hideKeyboard(currentFocus ?: View(this))
+
             binding.fecharesult1.setText("")
             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
             buscardatosretrofit(binding.etNumeros.text.toString())
@@ -136,14 +140,17 @@ class Scan_inspector : AppCompatActivity() {
 
     private fun buscardatosretrofit(dato:String){
         getRetrofit()
+        var Lic_func1: String? =""
+
         var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
         val select = binding.Rgroup.getCheckedRadioButtonId()
         if(select==binding.r1.id){
-            url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
             //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
-
+            Lic_func1=dato.padStart(4, '0')
+            url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
         }else {
-            url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
+            Lic_func1=dato.padStart(10, '0')
+            url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
 
         }
         CoroutineScope(Dispatchers.IO).launch {
@@ -168,7 +175,7 @@ class Scan_inspector : AppCompatActivity() {
                         Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
                         Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
 
-                        if(Lic_func.equals(dato)){
+                        if(Lic_func.equals(Lic_func1)){
                             if(Estado.equals("VIGENTE")){
                                 binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
                                 //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
@@ -230,7 +237,7 @@ class Scan_inspector : AppCompatActivity() {
                              ,Area           :String
                              ,Fecha_Exp      :String
                              ,Fecha_Caducidad:String) {
-        val i = Intent(this@Scan_inspector,list::class.java).apply {
+        val i = Intent(this@Scan_inspector, list::class.java).apply {
             putExtra("Estado",estado)
             putExtra("lic_func",lic_func)
             putExtra("Nombre_razon",Nombre_razon)

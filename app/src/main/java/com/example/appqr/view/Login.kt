@@ -53,7 +53,16 @@ class login : AppCompatActivity() {
         //val display=setSupportActionBar(tolls)
         btningresar.setOnClickListener()
         {
-            validarSession(txtemail.text.toString(),txtpass.text.toString())
+            var user1 =txtemail.text.toString()
+
+            user1 = user1.replace("\\s".toRegex(), "")
+
+            var password1 =txtpass.text.toString()
+
+            password1 = password1.replace("\\s".toRegex(), "")
+            validarSession(user1,password1)
+
+
         }
 
 

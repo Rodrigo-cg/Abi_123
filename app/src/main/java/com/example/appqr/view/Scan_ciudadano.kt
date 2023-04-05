@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
 import com.example.appqr.databinding.ActivityScanCiudadanoBinding
 import com.example.appqr.model.apiService
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
@@ -69,14 +70,14 @@ class Scan_ciudadano : AppCompatActivity() {
             finish()
 
         }
-        binding.btnScan.setOnClickListener(){
+        binding.btnlupa.setOnClickListener(){
             binding.fecharesult1.setText("")
             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
 
             initScan()
         }
 
-        binding.btnlupa.setOnClickListener(){
+        binding.btnlupa1.setOnClickListener(){
             //Toast.makeText(this , "date", Toast.LENGTH_SHORT).show()
             binding.fecharesult1.setText("")
             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
@@ -96,7 +97,10 @@ class Scan_ciudadano : AppCompatActivity() {
 
     }
 
+    @SuppressLint("RestrictedApi")
     private  fun initScan(){
+        hideKeyboard(currentFocus ?: View(this))
+
         IntentIntegrator(this).initiateScan()
     }
 
@@ -121,17 +125,25 @@ class Scan_ciudadano : AppCompatActivity() {
 
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
 
-            @SuppressLint("ResourceAsColor")
+            @SuppressLint("ResourceAsColor", "RestrictedApi")
             private fun buscarCertificado(dato:String){
+                hideKeyboard(currentFocus ?: View(this))
+
                 getRetrofit()
+                var Lic_func1: String? =""
                 var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
                 val select = binding.Rgroup.getCheckedRadioButtonId()
                 if(select==binding.r1.id){
-                    url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
                     //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
 
+                    Lic_func1=dato.padStart(4, '0')
+                    url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
+
+
                 }else {
-                    url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
+                    Lic_func1=dato.padStart(10, '0')
+                    url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
+
 
                 }
                 CoroutineScope(Dispatchers.IO).launch {
@@ -155,8 +167,15 @@ class Scan_ciudadano : AppCompatActivity() {
                                 Area            = certpar?.Area?:"No exite en base de datos"
                                 Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
                                 Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
+                                //if (int1 != null) {
+                                //    Toast.makeText(applicationContext, int1, Toast.LENGTH_SHORT).show()
+                                //}
+                                //val int2:Int?=dato.toInt()
+                                //Lic_func.equals(dato)
+                                //int1==int2
 
-                                if(Lic_func.equals(dato)){
+                                if(Lic_func.equals(Lic_func1)){
+                                    Toast.makeText(applicationContext, Lic_func1 + "Licencia_input", Toast.LENGTH_SHORT).show()
                                     if(Estado.equals("VIGENTE")){
                                         binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
                                         //binding.estadocertifi.setTextColor(R.color.white)

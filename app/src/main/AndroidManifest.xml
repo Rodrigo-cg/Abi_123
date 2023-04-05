@@ -20,7 +20,13 @@
         android:theme="@style/Theme.AppQR"
         tools:targetApi="31">
         <activity
-            android:name=".list"
+            android:name=".view.filtrosubtipolicencia"
+            android:exported="false" />
+        <activity
+            android:name=".view.filtroSubgerencia"
+            android:exported="false" />
+        <activity
+            android:name=".view.list"
             android:exported="false" />
         <activity
             android:name=".prueba"
