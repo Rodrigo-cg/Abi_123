@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
+import com.example.appqr.adapter.CustomAdapter
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
@@ -33,6 +34,7 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var datos:String
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
+    private lateinit var  adapterCert: CustomAdapter
 
     private var Estado= ""
     private var Lic_func= ""
@@ -45,7 +47,7 @@ class Scan_inspector : AppCompatActivity() {
     private var  Area= ""
     private var  Fecha_Exp= ""
     private var  Fecha_Caducidad= ""
-    private  var dogList = mutableListOf<dataCert>()
+    private  var listcertfasociate = mutableListOf<dataCert>()
 
 
 
@@ -63,10 +65,10 @@ class Scan_inspector : AppCompatActivity() {
         builder.show()
         binding = ActivityScanInspectorBinding.inflate(layoutInflater)
 
-
         //<include layout="@layout/custom_toolbar"></include>
 
         setContentView(binding.root)
+
         binding.datacert.visibility= View.INVISIBLE
         binding.fecharesult1.setText("")
         binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
@@ -103,6 +105,8 @@ class Scan_inspector : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
@@ -157,7 +161,7 @@ class Scan_inspector : AppCompatActivity() {
             url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
             url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
         }
-        /*CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             GlobalScope.launch {
                 val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
            //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
@@ -214,22 +218,22 @@ class Scan_inspector : AppCompatActivity() {
 
 
             }
-            }*/
-        CoroutineScope(Dispatchers.IO).launch {
+            }
+        /*CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
             val certificados = call.body()
             runOnUiThread {
                 if(call.isSuccessful){
                     val  listaPerros = certificados?.datos ?: emptyList()
 
-                    dogList.clear()
-                    dogList.addAll(listaPerros)
-                    adapterMasc.notifyDataSetChanged()
+                    listcertfasociate.clear()
+                    listcertfasociate.addAll(listaPerros)
+                    adapterCert.notifyDataSetChanged()
                 }else{
                     showError()
                 }
             }
-        }
+        }*/
         }
 
     private fun getRetrofit(): Retrofit {
@@ -276,5 +280,7 @@ class Scan_inspector : AppCompatActivity() {
         startActivity(i)
 
     }
-
+    private fun showError(){
+        Toast.makeText(this,"Error en la consulta listxID",Toast.LENGTH_SHORT).show()
+    }
 }

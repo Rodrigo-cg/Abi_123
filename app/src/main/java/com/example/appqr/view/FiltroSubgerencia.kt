@@ -8,9 +8,11 @@ import com.example.appqr.R
 import com.example.appqr.adapter.CustomAdapter
 import com.example.appqr.databinding.ActivityFiltro1SubgerenciaBinding
 import com.example.appqr.model.ItemsViewModel
+import com.example.appqr.model.dataCert
 
 class filtroSubgerencia : AppCompatActivity() {
     private lateinit var   binding: ActivityFiltro1SubgerenciaBinding
+    private lateinit var  adapterCert: CustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,15 +23,11 @@ class filtroSubgerencia : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerview.layoutManager=LinearLayoutManager(this)
-        val data = ArrayList<ItemsViewModel>()
 
-        for (i in 1..20) {
-            data.add(ItemsViewModel( "Item " + i))
-        }
         // This will pass the ArrayList to our Adapter
-        val adapter = CustomAdapter(data)
+
 
         // Setting the Adapter with the recyclerview
-        binding.recyclerview.adapter = adapter
+        binding.recyclerview.adapter = adapterCert
     }
 }
