@@ -1,15 +1,16 @@
 package com.example.appqr.adapter
 
+import android.content.Context
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appqr.R
-import com.example.appqr.model.ItemsViewModel
 import com.example.appqr.model.dataCert
 
-class CustomAdapter(private val mList: List<dataCert>,private val oncClickListener:(dataCert)-> Unit) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(context: Context, private val mList: ArrayList<dataCert>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -2,17 +2,18 @@ package com.example.appqr.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.os.Parcelable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appqr.R
 import com.example.appqr.adapter.CustomAdapter
 import com.example.appqr.databinding.ActivityFiltro1SubgerenciaBinding
-import com.example.appqr.model.ItemsViewModel
 import com.example.appqr.model.dataCert
 
 class filtroSubgerencia : AppCompatActivity() {
     private lateinit var   binding: ActivityFiltro1SubgerenciaBinding
     private lateinit var  adapterCert: CustomAdapter
+    val listcertxfasociate : ArrayList<dataCert> = intent.getParcelableExtra("workoutlist")!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +26,9 @@ class filtroSubgerencia : AppCompatActivity() {
         binding.recyclerview.layoutManager=LinearLayoutManager(this)
 
         // This will pass the ArrayList to our Adapter
-
+        //adapterCert= CustomAdapter(this,listcertxfasociate)
 
         // Setting the Adapter with the recyclerview
-        binding.recyclerview.adapter = adapterCert
+        //binding.recyclerview.adapter = adapterCert
     }
 }

@@ -14,6 +14,7 @@ data class dataCert(
     @SerializedName("Area") val Area: String? = null,
     @SerializedName("Fech_Exp") val Fecha_Exp: String? = null,
     @SerializedName("Beneficio") val Fecha_Caducidad: String? = null,
+    @SerializedName("tipo_db") val tipo_db: String? = null,
 
 
     )

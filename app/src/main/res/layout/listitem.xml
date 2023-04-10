@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="100dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/listImage"
@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/part_cert_name"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="12dp"
         android:layout_marginTop="13dp"

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
 import com.example.appqr.adapter.CustomAdapter
+import com.example.appqr.databinding.ActivityFiltro1SubgerenciaBinding
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.model.apiService
 import com.example.appqr.model.dataCert
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
 class Scan_inspector : AppCompatActivity() {
@@ -47,11 +49,10 @@ class Scan_inspector : AppCompatActivity() {
     private var  Area= ""
     private var  Fecha_Exp= ""
     private var  Fecha_Caducidad= ""
-    private  var listcertfasociate = mutableListOf<dataCert>()
+    public  var listcertfasociate = ArrayList<dataCert>()
 
 
 
-    private val lista_par_certf = mutableListOf<dataCert>()
     @SuppressLint("ResourceAsColor", "RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -222,19 +223,30 @@ class Scan_inspector : AppCompatActivity() {
         /*CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
             val certificados = call.body()
+
             runOnUiThread {
                 if(call.isSuccessful){
                     val  listaPerros = certificados?.datos ?: emptyList()
 
                     listcertfasociate.clear()
                     listcertfasociate.addAll(listaPerros)
-                    adapterCert.notifyDataSetChanged()
+                    Log.d("ayush: ", certificados.toString())
+
+                    initActivity2(listcertfasociate)
+                    //adapterCert.notifyDataSetChanged()
                 }else{
                     showError()
                 }
             }
         }*/
         }
+
+    private fun initActivity2(listcertfasociate: ArrayList<dataCert>) {
+        val intent = Intent(this, filtroSubgerencia::class.java)
+        intent.putExtra("listcertfasociate2", ArrayList(listcertfasociate))
+        startActivity(intent)
+
+    }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
