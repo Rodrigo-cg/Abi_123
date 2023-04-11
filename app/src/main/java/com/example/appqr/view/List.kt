@@ -1,6 +1,7 @@
 package com.example.appqr.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
@@ -41,7 +42,7 @@ class list : AppCompatActivity() {
 
         }
         val nameList = arrayOf("Nombre", "Giro", "Área", "Dirección", "Fecha de Expedición", "Número de Expediente", "Número de Resolución", "Número de Certificado","Fecha de caducidad")
-        val timeList = arrayOf(Nombre_razon, Giro, Area +" m2", Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad)
+        val timeList = arrayOf(Nombre_razon, Giro, Area +" m2", Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad + "\n")
         for (i in nameList.indices) {
             listData = dataList(
                 nameList[i],
@@ -52,6 +53,7 @@ class list : AppCompatActivity() {
         listAdapter = ListCertAdapter(this, dataArrayList)
         binding.listview.adapter = listAdapter
   //
+        //Toast.makeText(this,"$lic_func --- $Fecha_Caducidad ----",Toast.LENGTH_SHORT).show()
         }
 
 

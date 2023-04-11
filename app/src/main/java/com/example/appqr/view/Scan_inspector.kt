@@ -1,8 +1,12 @@
 package com.example.appqr.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -16,6 +20,7 @@ import com.example.appqr.adapter.CustomAdapter
 import com.example.appqr.databinding.ActivityFiltro1SubgerenciaBinding
 import com.example.appqr.databinding.ActivityScanInspectorBinding
 import com.example.appqr.model.apiService
+import com.example.appqr.model.checkinternet1
 import com.example.appqr.model.dataCert
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.textfield.TextInputLayout
@@ -145,100 +150,112 @@ class Scan_inspector : AppCompatActivity() {
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
 
     private fun buscardatosretrofit(dato:String){
-        getRetrofit()
-        var Lic_func1: String? =""
+        val check=checkinternet1()
+        if (check.checkForInternet(this)) {
+            //Buscar certificados
+            ////
+            getRetrofit()
+            var Lic_func1: String? =""
 
-        var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
-        var url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+            var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
+            var url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
 
-        val select = binding.Rgroup.getCheckedRadioButtonId()
-        if(select==binding.r1.id){
-            //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
-            Lic_func1=dato.padStart(4, '0')
-            url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
-            url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
-        }else {
-            Lic_func1=dato.padStart(10, '0')
-            url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
-            url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
+            val select = binding.Rgroup.getCheckedRadioButtonId()
+            if(select==binding.r1.id){
+                //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
+                Lic_func1=dato.padStart(4, '0')
+                url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
+                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
+            }else {
+                Lic_func1=dato.padStart(10, '0')
+                url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
+                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                GlobalScope.launch {
+                    val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
+                    //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
+
+                    val certpar=result.body()
+                    runOnUiThread{
+                        if (result != null) {
+                            // Checking the results
+                            Log.d("ayush: ", result.body().toString())
+                            Estado= certpar?.Estado ?:"No exite en base de datos"
+                            Lic_func= certpar?.Lic_Func ?:"No exite en base de datos"
+                            Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
+                            direccion= certpar?.Direccion ?:"No exite en base de datos"
+                            zona           = certpar?.Zona_Urbana ?:"No exite en base de datos"
+                            Num_Res         =  certpar?.Num_Res?:"No exite en base de datos"
+                            Num_Exp         = certpar?.Num_Exp?:"No exite en base de datos"
+                            Giro            = certpar?.Giro?:"No exite en base de datos"
+                            Area            = certpar?.Area?:"No exite en base de datos"
+                            Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
+                            Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
+
+                            if(Lic_func.equals(Lic_func1)){
+                                if(Estado.equals("VIGENTE")){
+                                    binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
+                                    //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
+                                    binding.fecharesult1.setText(Fecha_Exp)
+                                    val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                                    passwordLayout.error = null
+
+                                }
+                                else {
+                                    binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
+                                    binding.fecharesult1.setText(Fecha_Exp)
+                                    val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                                    passwordLayout.error = null
+                                }
+                                binding.datacert.visibility= View.VISIBLE
+                                binding.datacert.setOnClickListener(){
+                                    initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona,Num_Res,Num_Exp,Giro,Area,Fecha_Exp,Fecha_Caducidad)
+                                }
+                            }
+                            else
+                            {
+                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
+                                passwordLayout.error = "Datos incorrectos"
+                            }
+
+
+
+                            binding.estadoresult.setText(Estado)
+                        }else
+                            Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                }
+            }
+            /*CoroutineScope(Dispatchers.IO).launch {
+                val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
+                val certificados = call.body()
+
+                runOnUiThread {
+                    if(call.isSuccessful){
+                        val  listaPerros = certificados?.datos ?: emptyList()
+
+                        listcertfasociate.clear()
+                        listcertfasociate.addAll(listaPerros)
+                        Log.d("ayush: ", certificados.toString())
+
+                        initActivity2(listcertfasociate)
+                        //adapterCert.notifyDataSetChanged()
+                    }else{
+                        showError()
+                    }
+                }
+            }*/
+
+            ////
+
+        } else {
+            Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show()
         }
-        CoroutineScope(Dispatchers.IO).launch {
-            GlobalScope.launch {
-                val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
-           //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
-
-                val certpar=result.body()
-                runOnUiThread{
-                    if (result != null) {
-                        // Checking the results
-                        Log.d("ayush: ", result.body().toString())
-                         Estado= certpar?.Estado ?:"No exite en base de datos"
-                         Lic_func= certpar?.Lic_Func ?:"No exite en base de datos"
-                         Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
-                         direccion= certpar?.Direccion ?:"No exite en base de datos"
-                         zona           = certpar?.Zona_Urbana ?:"No exite en base de datos"
-                        Num_Res         =  certpar?.Num_Res?:"No exite en base de datos"
-                        Num_Exp         = certpar?.Num_Exp?:"No exite en base de datos"
-                        Giro            = certpar?.Giro?:"No exite en base de datos"
-                        Area            = certpar?.Area?:"No exite en base de datos"
-                        Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
-                        Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
-
-                        if(Lic_func.equals(Lic_func1)){
-                            if(Estado.equals("VIGENTE")){
-                                binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
-                                //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
-                                binding.fecharesult1.setText(Fecha_Exp)
-                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                                passwordLayout.error = null
-
-                            }
-                            else {
-                                binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
-                                binding.fecharesult1.setText(Fecha_Exp)
-                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                                passwordLayout.error = null
-                            }
-                            binding.datacert.visibility= View.VISIBLE
-                            binding.datacert.setOnClickListener(){
-                                initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona,Num_Res,Num_Exp,Giro,Area,Fecha_Exp,Fecha_Caducidad)
-                            }
-                        }
-                        else
-                        {
-                            val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                            passwordLayout.error = "Datos incorrectos"
-                        }
 
 
-
-                        binding.estadoresult.setText(Estado)
-                    }else
-                        Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
-                }
-
-
-            }
-            }
-        /*CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
-            val certificados = call.body()
-
-            runOnUiThread {
-                if(call.isSuccessful){
-                    val  listaPerros = certificados?.datos ?: emptyList()
-
-                    listcertfasociate.clear()
-                    listcertfasociate.addAll(listaPerros)
-                    Log.d("ayush: ", certificados.toString())
-
-                    initActivity2(listcertfasociate)
-                    //adapterCert.notifyDataSetChanged()
-                }else{
-                    showError()
-                }
-            }
-        }*/
         }
 
     private fun initActivity2(listcertfasociate: ArrayList<dataCert>) {
@@ -295,4 +312,6 @@ class Scan_inspector : AppCompatActivity() {
     private fun showError(){
         Toast.makeText(this,"Error en la consulta listxID",Toast.LENGTH_SHORT).show()
     }
+
+
 }

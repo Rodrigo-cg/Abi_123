@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.appqr.R
 import com.example.appqr.model.apiService
+import com.example.appqr.model.checkinternet1
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -68,7 +69,6 @@ class login : AppCompatActivity() {
 
 
 
-
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
@@ -83,27 +83,29 @@ class login : AppCompatActivity() {
 
 
     private fun validarSession(user:String, pass:String){
-        try {
+        val check= checkinternet1()
+
+        if(check.checkForInternet(this)) {
             CoroutineScope(Dispatchers.IO).launch {
-                val calls = getRetrofit().create(apiService::class.java).getValidUser("certificados_apps/conexiones_php/validarLogin.php?user=$user&pass=$pass")
+                val calls = getRetrofit().create(apiService::class.java)
+                    .getValidUser("certificados_apps/conexiones_php/validarLogin.php?user=$user&pass=$pass")
                 val users = calls.body()
                 runOnUiThread {
 
-                    if(calls != null){
+                    if (calls != null) {
                         User = users?.id_user ?: "No hay user"
                         Password = users?.clave ?: "No hay contraseña"
                         Error = users?.Error ?: "No hay error"
 
-                        if(User.equals(user) && Password.equals(pass))
+                        if (User.equals(user) && Password.equals(pass))
                             initActivity(User)
-                        else
-                        {
-                            val passwordLayout:TextInputLayout=findViewById(R.id.textInputLayout)
+                        else {
+                            val passwordLayout: TextInputLayout = findViewById(R.id.textInputLayout)
                             passwordLayout.error = "Datos incorrectos"
-                            val passwordLayout2:TextInputLayout=findViewById(R.id.textField)
+                            val passwordLayout2: TextInputLayout = findViewById(R.id.textField)
                             passwordLayout2.error = "Datos incorrectos"
                         }
-                    }else{
+                    } else {
 
                         showToast("Error al validar usuario")
 
@@ -111,13 +113,10 @@ class login : AppCompatActivity() {
                 }
             }
             // some code
-        } catch (e: Exception) {
-            showToast("Error al validar usuario 2")
-            // handler
-        } finally {
-            // optional finally block
         }
-
+        else {
+            Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show()
+        }
 
 
     }
@@ -135,10 +134,16 @@ class login : AppCompatActivity() {
     private fun initActivity(user:String,) {
         val i = Intent(this,Scan_inspector::class.java).apply {
             putExtra("User",user)
+            val passwordLayout1 =findViewById<TextInputLayout>(R.id.textInputLayout)
+            passwordLayout1.error = null
+            val passwordLayout: TextInputLayout =findViewById(R.id.textField)
+            passwordLayout.error = null
+
             //putExtra("",)
             //putExtra("",)
         }
         startActivity(i)
 
     }
+
 }
