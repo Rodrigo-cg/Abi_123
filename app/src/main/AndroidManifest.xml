@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,30 +20,28 @@
         android:theme="@style/Theme.AppQR"
         tools:targetApi="31">
         <activity
-            android:name=".view.filtrosubtipolicencia"
+            android:name="com.mda.ateinspeccion.view.filtrosubtipolicencia"
             android:exported="false" />
         <activity
-            android:name=".view.filtroSubgerencia"
+            android:name="com.mda.ateinspeccion.view.filtroSubgerencia"
             android:exported="false" />
         <activity
-            android:name=".view.list"
+            android:name="com.mda.ateinspeccion.view.list"
+            android:exported="false" />
+
+        <activity
+            android:name="com.mda.ateinspeccion.detalleCertificados"
             android:exported="false" />
         <activity
-            android:name=".prueba"
-            android:exported="false" />
-        <activity
-            android:name=".detalleCertificados"
-            android:exported="false" />
-        <activity
-            android:name=".view.login"
+            android:name="com.mda.ateinspeccion.view.login"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.Scan_ciudadano"
+            android:name="com.mda.ateinspeccion.view.Scan_ciudadano"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.Inicio"
+            android:name="com.mda.ateinspeccion.view.Inicio"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -53,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.Scan_inspector"
+            android:name="com.mda.ateinspeccion.view.Scan_inspector"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -67,7 +65,7 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".detalle_inspector"
+            android:name="com.mda.ateinspeccion.detalle_inspector"
             android:exported="true"
             android:screenOrientation="portrait" />
     </application>
