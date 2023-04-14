@@ -23,8 +23,8 @@
         android:id="@+id/textInputLayout"
 
         style="?attr/textInputFilledStyle"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_width="336dp"
+        android:layout_height="91dp"
         android:hint="N° de certificado"
         android:paddingLeft="65dp"
         android:paddingTop="20dp"
@@ -48,6 +48,7 @@
             android:paddingLeft="0dp"
             android:paddingEnd="0dp"
             android:paddingRight="30dp" />
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
