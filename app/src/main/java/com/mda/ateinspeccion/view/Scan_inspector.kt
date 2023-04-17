@@ -11,17 +11,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.mda.ateinspeccion.adapter.CustomAdapter
 import com.mda.ateinspeccion.databinding.ActivityScanInspectorBinding
 import com.mda.ateinspeccion.model.apiService
 import com.mda.ateinspeccion.model.checkinternet1
 import com.mda.ateinspeccion.model.dataCert
-import com.google.android.material.internal.ViewUtils.hideKeyboard
-import com.google.android.material.textfield.TextInputLayout
 import com.mda.ateinspeccion.R
+import com.mda.ateinspeccion.adapter.ListCertAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,7 +34,8 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var datos:String
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
-    private lateinit var  adapterCert: CustomAdapter
+    private lateinit var  listAdapterCert: CustomAdapter
+    private lateinit var listAdapter: ListCertAdapter
 
     private var Estado= ""
     private var Lic_func= ""
@@ -69,9 +69,9 @@ class Scan_inspector : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.datacert.visibility= View.INVISIBLE
-        binding.fecharesult1.setText("")
-        binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
+        //binding.datacert.visibility= View.INVISIBLE
+        //binding.fecharesult1.setText("")
+        //binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
         //getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         //getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
@@ -85,7 +85,7 @@ class Scan_inspector : AppCompatActivity() {
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
         //val display=setSupportActionBar(tolls)
 
-         binding.btnlupa.setOnClickListener(){
+         /*binding.btnlupa.setOnClickListener(){
              hideKeyboard(currentFocus ?: View(this))
 
              binding.visualizar.visibility= View.INVISIBLE
@@ -93,14 +93,12 @@ class Scan_inspector : AppCompatActivity() {
              binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
 
              //initScan()
-         }
+         }*/
         binding.btnlupa1.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
             hideKeyboard(currentFocus ?: View(this))
 
-            binding.fecharesult1.setText("")
-            binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
-            buscardatosretrofit(binding.etNumeros.text.toString())
+            buscardatosretrofit(binding.lic.text.toString())
         }
 
 
@@ -154,8 +152,8 @@ class Scan_inspector : AppCompatActivity() {
             var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
             var url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
 
-            val select = binding.Rgroup.getCheckedRadioButtonId()
-            if(select==binding.r1.id){
+            //val select = binding.Rgroup.getCheckedRadioButtonId()
+            /*if(select==binding.r1.id){
                 //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
                 Lic_func1=dato.padStart(4, '0')
                 url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
@@ -164,8 +162,8 @@ class Scan_inspector : AppCompatActivity() {
                 Lic_func1=dato.padStart(10, '0')
                 url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
                 url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
-            }
-            CoroutineScope(Dispatchers.IO).launch {
+            }*/
+            /*CoroutineScope(Dispatchers.IO).launch {
                 GlobalScope.launch {
                     val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
                     //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
@@ -187,7 +185,7 @@ class Scan_inspector : AppCompatActivity() {
                             Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
                             Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
 
-                            if(Lic_func.equals(Lic_func1)){
+                            /*if(Lic_func.equals(Lic_func1)){
                                 if(Estado.equals("VIGENTE")){
                                     binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
                                     //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
@@ -211,19 +209,19 @@ class Scan_inspector : AppCompatActivity() {
                             {
                                 val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
                                 passwordLayout.error = "Datos incorrectos"
-                            }
+                            }*/
 
 
 
-                            binding.estadoresult.setText(Estado)
+                            //binding.estadoresult.setText(Estado)
                         }else
                             Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
                     }
 
 
                 }
-            }
-            /*CoroutineScope(Dispatchers.IO).launch {
+            }*/
+            CoroutineScope(Dispatchers.IO).launch {
                 val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
                 val certificados = call.body()
 
@@ -233,15 +231,16 @@ class Scan_inspector : AppCompatActivity() {
 
                         listcertfasociate.clear()
                         listcertfasociate.addAll(listaPerros)
+                        changelist(listcertfasociate)
                         Log.d("ayush: ", certificados.toString())
 
-                        initActivity2(listcertfasociate)
+                        //initActivity2(listcertfasociate)
                         //adapterCert.notifyDataSetChanged()
                     }else{
                         showError()
                     }
                 }
-            }*/
+            }
 
             ////
 
@@ -251,6 +250,11 @@ class Scan_inspector : AppCompatActivity() {
 
 
         }
+
+    private fun changelist(listcertfasociate: java.util.ArrayList<dataCert>) {
+        listAdapterCert = CustomAdapter(this, listcertfasociate)
+        binding.listviewcert.adapter = listAdapterCert
+    }
 
     private fun initActivity2(listcertfasociate: ArrayList<dataCert>) {
         val intent = Intent(this, filtroSubgerencia::class.java)

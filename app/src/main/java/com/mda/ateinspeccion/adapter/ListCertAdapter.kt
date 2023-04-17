@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.dataList
 
-class ListCertAdapter(context: Context, dataArrayList: ArrayList<dataList?>?) :
+class ListCertAdapter(context: Context, dataArrayList: ArrayList<dataList?>) :
     ArrayAdapter<dataList?>(context, R.layout.listitem, dataArrayList!!) {
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var view = view

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FFFFFF"
     tools:context=".view.Scan_inspector">
 
 
@@ -49,7 +48,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
@@ -60,7 +59,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
 
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -80,7 +79,7 @@
                 android:id="@+id/ruc"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:hint="N°expediente"
+                android:hint="N°Licencia"
                 android:inputType="number"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -111,7 +110,7 @@
                 android:id="@+id/lic"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:hint="N°Licencia"
+                android:hint="N°Expediente"
                 android:inputType="number"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -143,10 +142,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/menu"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="Subgerencias"
+        android:hint="Escoger subgerencias"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
@@ -159,7 +158,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:textSize="14sp"
             app:simpleItems="@array/gerencias_array" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ListView
+        android:id="@+id/listviewcert"
+        android:layout_width="wrap_content"
+        android:layout_height="552dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnlupa1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
