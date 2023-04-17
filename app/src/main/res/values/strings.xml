@@ -53,4 +53,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <string-array name="gerencias_array">
+        <item>subgerencia de promocion, formalizacion empresarial y turismo</item>
+        <item>Subgerencia de gestion de riesgo y desastre</item>
+        <item>subgerencia de planificacion urbana y catastro</item>
+        <item>subgerencia de habilitaciones urbanas y edificaciones</item>
+    </string-array>
 </resources>
