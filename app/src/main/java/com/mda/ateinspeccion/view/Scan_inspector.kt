@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.mda.ateinspeccion.adapter.CustomAdapter
 import com.mda.ateinspeccion.databinding.ActivityScanInspectorBinding
@@ -36,6 +37,7 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var tolls:Toolbar
     private lateinit var  listAdapterCert: CustomAdapter
     private lateinit var listAdapter: ListCertAdapter
+    private lateinit var  adapterCert: CustomAdapter
 
     private var Estado= ""
     private var Lic_func= ""
@@ -94,6 +96,7 @@ class Scan_inspector : AppCompatActivity() {
 
              //initScan()
          }*/
+
         binding.btnlupa1.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
             hideKeyboard(currentFocus ?: View(this))
@@ -101,6 +104,7 @@ class Scan_inspector : AppCompatActivity() {
             buscardatosretrofit(binding.lic.text.toString())
         }
 
+        binding.recyclerview.layoutManager= LinearLayoutManager(this)
 
     }
 
@@ -233,8 +237,9 @@ class Scan_inspector : AppCompatActivity() {
                         listcertfasociate.addAll(listaPerros)
                         changelist(listcertfasociate)
                         Log.d("ayush: ", certificados.toString())
-
                         //initActivity2(listcertfasociate)
+                        //adapterCert= CustomAdapter(this,listcertfasociate)
+
                         //adapterCert.notifyDataSetChanged()
                     }else{
                         showError()
@@ -252,8 +257,9 @@ class Scan_inspector : AppCompatActivity() {
         }
 
     private fun changelist(listcertfasociate: java.util.ArrayList<dataCert>) {
-        listAdapterCert = CustomAdapter(this, listcertfasociate)
-        binding.listviewcert.adapter = listAdapterCert
+       // listAdapterCert = CustomAdapter(this, listcertfasociate)
+
+        // binding.listviewcert.adapter = listAdapterCert
     }
 
     private fun initActivity2(listcertfasociate: ArrayList<dataCert>) {

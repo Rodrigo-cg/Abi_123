@@ -1,6 +1,7 @@
 package com.mda.ateinspeccion.adapter
 
 import android.content.Context
+import android.database.DataSetObserver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.dataCert
 
-class CustomAdapter(context: Context,var mList: ArrayList<dataCert>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(),
+abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(),
     ListAdapter {
 
     // create new views
@@ -43,5 +44,9 @@ class CustomAdapter(context: Context,var mList: ArrayList<dataCert>) : RecyclerV
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
+    }
+
+    override fun registerDataSetObserver(p0: DataSetObserver?) {
+        TODO("Not yet implemented")
     }
 }

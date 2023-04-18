@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+
     //noinspection GradleCompatible
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'joda-time:joda-time:2.12.2'
@@ -64,4 +65,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     //Material design
     implementation 'com.google.android.material:material:1.8.0'
+    //Fragments
+    implementation "androidx.fragment:fragment-ktx:1.5.6"
 }

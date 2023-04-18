@@ -34,7 +34,7 @@ class login : AppCompatActivity() {
         val txtemail : TextView = findViewById(R.id.edtEmail)
         val  txtpass : TextView = findViewById(R.id.etNumeros)
 
-        tolls = findViewById(R.id.topAppBar)
+        tolls = findViewById(R.id.topapp4)
         //setSupportActionBar(tolls);
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setDisplayShowTitleEnabled(false);
@@ -128,7 +128,7 @@ class login : AppCompatActivity() {
     }
 
     private fun initActivity(user:String,) {
-        val i = Intent(this,Scan_inspector::class.java).apply {
+        val i = Intent(this,tipolicencias::class.java).apply {
             putExtra("User",user)
             val passwordLayout1 =findViewById<TextInputLayout>(R.id.textInputLayout)
             passwordLayout1.error = null
