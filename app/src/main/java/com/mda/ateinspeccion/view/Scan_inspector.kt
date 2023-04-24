@@ -20,9 +20,12 @@ import com.mda.ateinspeccion.model.checkinternet1
 import com.mda.ateinspeccion.model.dataCert
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.adapter.ListCertAdapter
+import com.mda.ateinspeccion.adapter.detalleAdapter1
+import com.mda.ateinspeccion.model.elecciontramite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -37,8 +40,8 @@ class Scan_inspector : AppCompatActivity() {
     private lateinit var tolls:Toolbar
     private lateinit var  listAdapterCert: CustomAdapter
     private lateinit var listAdapter: ListCertAdapter
-    private lateinit var  adapterCert: CustomAdapter
-
+    //private lateinit var  adapterCert: CustomAdapter
+    private lateinit var  adapterCert: detalleAdapter1
     private var Estado= ""
     private var Lic_func= ""
     private var Nombre_Razon= ""
@@ -78,7 +81,7 @@ class Scan_inspector : AppCompatActivity() {
         //getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         //getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.baseline_arrow_left_24)
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        tolls = findViewById(R.id.topAppBar2)
+        tolls = findViewById(R.id.topAppBar8)
         tolls.setNavigationOnClickListener(){
 
             finish()
@@ -96,6 +99,14 @@ class Scan_inspector : AppCompatActivity() {
 
              //initScan()
          }*/
+        if(elecciontramite.indeterminada==1){
+
+
+        }else if(elecciontramite.temporal==1){
+
+        }else if(elecciontramite.itcse==1){
+
+        }
 
         binding.btnlupa1.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
@@ -103,8 +114,11 @@ class Scan_inspector : AppCompatActivity() {
 
             buscardatosretrofit(binding.lic.text.toString())
         }
+        adapterCert = detalleAdapter1(listcertfasociate){
 
+        }
         binding.recyclerview.layoutManager= LinearLayoutManager(this)
+        binding.recyclerview.adapter = adapterCert
 
     }
 
@@ -152,10 +166,16 @@ class Scan_inspector : AppCompatActivity() {
             ////
             getRetrofit()
             var Lic_func1: String? =""
-
+            var url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
             var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
-            var url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+            if(elecciontramite.indeterminada==1){
+                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+            }else if(elecciontramite.temporal==1){
+                url2="certificados_apps/conexiones_php/temporales.php?LIC=$dato"
 
+            }else {
+                url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+            }
             //val select = binding.Rgroup.getCheckedRadioButtonId()
             /*if(select==binding.r1.id){
                 //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
@@ -238,9 +258,9 @@ class Scan_inspector : AppCompatActivity() {
                         changelist(listcertfasociate)
                         Log.d("ayush: ", certificados.toString())
                         //initActivity2(listcertfasociate)
-                        //adapterCert= CustomAdapter(this,listcertfasociate)
+                        //adapterCert= detalleAdapter1(this,listcertfasociate)
 
-                        //adapterCert.notifyDataSetChanged()
+                        adapterCert.notifyDataSetChanged()
                     }else{
                         showError()
                     }
@@ -274,6 +294,7 @@ class Scan_inspector : AppCompatActivity() {
              .baseUrl("https://proyectosti.muniate.gob.pe/")
             //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder().build())
             .build()
     }
     private fun buscarUrl(links: String) {

@@ -43,7 +43,7 @@ abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) :
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val textView: TextView = itemView.findViewById(R.id.textViewCardfilter1)
     }
 
     override fun registerDataSetObserver(p0: DataSetObserver?) {

@@ -1,7 +1,10 @@
 package com.mda.ateinspeccion.model
 
-object elecciontramite {
+import java.sql.Timestamp
 
+object elecciontramite {
+    var usuario:String?="No hay usuario"
+    val timeStamp = Timestamp(System.currentTimeMillis())
     var temporal: Int? = 0
     var indeterminada: Int? = 0
     var itcse: Int? = 0

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -13,9 +14,13 @@ import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.apiService
 import com.mda.ateinspeccion.model.checkinternet1
 import com.google.android.material.textfield.TextInputLayout
+import com.mda.ateinspeccion.model.userInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -141,5 +146,26 @@ class login : AppCompatActivity() {
         startActivity(i)
 
     }
+    private fun addMascotass(lista:userInfo){
+
+        val calls = getRetrofit().create(apiService::class.java).addHistorialSesion(lista)
+
+        calls.enqueue(
+            object : Callback<postRes> {
+                override fun onResponse(call: Call<postRes>, response: Response<postRes>) {
+                    val res = response.body()
+                    showToast("id : ${res?.id ?: "no hay id"}")
+                }
+
+                override fun onFailure(call: Call<postRes>, t: Throwable) {
+                    Log.i("Error------POST", t.toString())
+                }
+
+            }
+        )
+
+
+    }
+
 
 }

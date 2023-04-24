@@ -29,6 +29,7 @@ class tipolicencias : AppCompatActivity() {
         elecciontramite.clear()
         binding.temporal.setOnClickListener(){
             elecciontramite.temporal=1
+            initActivity()
 
 
         }
