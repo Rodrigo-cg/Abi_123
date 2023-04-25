@@ -146,7 +146,7 @@ class login : AppCompatActivity() {
         startActivity(i)
 
     }
-    private fun addMascotass(lista:userInfo){
+    /*private fun addMascotass(lista:userInfo){
 
         val calls = getRetrofit().create(apiService::class.java).addHistorialSesion(lista)
 
@@ -165,7 +165,7 @@ class login : AppCompatActivity() {
         )
 
 
-    }
+    }*/
 
 
 }
