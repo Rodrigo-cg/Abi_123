@@ -9,7 +9,7 @@ data class dataCert(
     @SerializedName("Direccion") val Direccion: String? = null,
     @SerializedName("Zona_Urbana") val Zona_Urbana: String? = null,
     @SerializedName("Res") val Num_Res: String? = null,
-    @SerializedName("Esp.") val Num_Exp: String? = null,
+    @SerializedName("Exp") val Num_Exp: String? = null,
     @SerializedName("Giro") val Giro: String? = null,
     @SerializedName("Area") val Area: String? = null,
     @SerializedName("Fech_Exp") val Fecha_Exp: String? = null,

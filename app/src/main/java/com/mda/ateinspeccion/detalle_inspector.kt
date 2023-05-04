@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 
 class detalle_inspector : AppCompatActivity() {
-    private lateinit var   binding:DetalleInspectorBinding
+    private lateinit var   binding: DetalleInspectorBinding
     private  var  contador = 0
     private lateinit var  certiList:ArrayList<Certificados>
     private lateinit var  adapterCerti: detalleAdapter

@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
-import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.databinding.ActivityTipolicenciasBinding
+import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.elecciontramite
+
 
 class tipolicencias : AppCompatActivity() {
     private lateinit var binding: ActivityTipolicenciasBinding
@@ -28,32 +29,32 @@ class tipolicencias : AppCompatActivity() {
         }
         elecciontramite.clear()
         binding.temporal.setOnClickListener(){
-            elecciontramite.temporal=1
+            elecciontramite.tipo=elecciontramite.temporal
             initActivity()
 
 
         }
         binding.indeter.setOnClickListener(){
-            elecciontramite.indeterminada=1
+            elecciontramite.tipo=elecciontramite.indeterminada
             initActivity()
         }
         binding.itse.setOnClickListener(){
-            elecciontramite.itcse=1
+            elecciontramite.tipo=elecciontramite.itcse
             initActivity()
 
         }
         binding.ecse.setOnClickListener(){
-            elecciontramite.ecse=1
+            elecciontramite.tipo=elecciontramite.ecse
             initActivity()
 
         }
         binding.construc.setOnClickListener(){
-            elecciontramite.contrusccion=1
+            elecciontramite.tipo=elecciontramite.contrusccion
             initActivity()
 
         }
         binding.habilitacion.setOnClickListener(){
-            elecciontramite.habilitacion=1
+            elecciontramite.tipo=elecciontramite.habilitacion
             initActivity()
 
         }

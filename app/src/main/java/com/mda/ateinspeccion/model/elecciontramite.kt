@@ -3,14 +3,18 @@ package com.mda.ateinspeccion.model
 import java.sql.Timestamp
 
 object elecciontramite {
+
     var usuario:String?="No hay usuario"
-    val timeStamp = Timestamp(System.currentTimeMillis())
-    var temporal: Int? = 0
-    var indeterminada: Int? = 0
-    var itcse: Int? = 0
-    var ecse: Int? = 0
-    var contrusccion: Int? = 0
-    var habilitacion: Int? = 0
+    var timeStamp = Timestamp(System.currentTimeMillis())
+    val temporal: String?= "temporal"
+    val indeterminada: String? = "indeterminada"
+    val itcse: String? = "itcse"
+    val ecse: String? = "ecse"
+    val contrusccion: String? = "contrusccion"
+    val habilitacion: String? = "habilitacion"
+    var tipo: String?=""
+
+
 
     fun clear(){
         var temporal = 0
@@ -19,6 +23,8 @@ object elecciontramite {
         var ecse = 0
         var contrusccion= 0
         var habilitacion = 0
+        var tipo: String?=""
+
 
 
     }

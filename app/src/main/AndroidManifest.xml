@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AppQR"
         tools:targetApi="31">
         <activity
+            android:name=".filtrartiposlicencia"
+            android:exported="false" />
+        <activity
             android:name=".view.buscarcertificado_inspector"
             android:exported="false" />
         <activity

@@ -22,7 +22,7 @@ class detalleCertificados : AppCompatActivity() {
 
         binding.Estado.setText(Estado)
         binding.licFunc1.setText(lic_func)
-        binding.nombreRazonsocial.setText(Nombre_razon)
+        binding.nombreRazonsocial2.setText(Nombre_razon)
         binding.direccionzona.setText("$Direccion - $Zona")
     }
 }

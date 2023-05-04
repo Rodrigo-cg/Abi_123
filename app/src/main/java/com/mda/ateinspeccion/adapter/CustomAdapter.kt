@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.dataCert
 
-abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(),
+abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>, private val oncClickListener:(dataCert)-> Unit) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(),
     ListAdapter {
 
     // create new views
@@ -28,6 +28,7 @@ abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val dataCert = mList[position]
+        holder.render(dataCert, oncClickListener)
 
         // sets the image to the imageview from our itemHolder class
 
@@ -36,6 +37,7 @@ abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) :
 
     }
 
+
     // return the number of the items in the list
     override fun getItemCount(): Int {
         return mList.size
@@ -43,10 +45,24 @@ abstract class CustomAdapter(context: Context, var mList: ArrayList<dataCert>) :
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val textView: TextView = itemView.findViewById(R.id.textViewCardfilter1)
-    }
+        val textView: TextView = itemView.findViewById(R.id.Lic)
+        val lic: TextView = itemView.findViewById(R.id.Lic)
+        val exp: TextView = itemView.findViewById(R.id.exp2)
+        val razon_nom: TextView = itemView.findViewById(R.id.nom_razon)
+        val estado: TextView = itemView.findViewById(R.id.estado)
+        fun render(certificado_item: dataCert, oncClickListener: (dataCert) -> Unit) {
+            lic.text = certificado_item.Lic_Func
+            exp.text = certificado_item.Num_Exp
 
-    override fun registerDataSetObserver(p0: DataSetObserver?) {
-        TODO("Not yet implemented")
+            razon_nom.text = certificado_item.Nombre_Razón_Social
+            estado.text = certificado_item.Estado
+
+            itemView.setOnClickListener {
+                oncClickListener(certificado_item)
+
+            }
+        }
     }
 }
+
+

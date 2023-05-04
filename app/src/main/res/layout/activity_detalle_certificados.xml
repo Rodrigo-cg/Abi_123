@@ -39,7 +39,7 @@
             android:text="Nombre o razón social" />
 
         <TextView
-            android:id="@+id/nombre_razonsocial"
+            android:id="@+id/nombre_razonsocial2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

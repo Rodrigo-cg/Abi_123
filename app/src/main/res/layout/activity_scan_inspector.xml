@@ -35,7 +35,7 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lic"
+            android:id="@+id/exp"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:hint="N°Expediente"
@@ -68,7 +68,7 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ruc"
+            android:id="@+id/lic"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:hint="N°Licencia"
@@ -101,7 +101,7 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lic"
+            android:id="@+id/ruc"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:hint="N°Ruc"
@@ -128,12 +128,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="316dp"
+        android:layout_width="380dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnlupa1"
         tools:itemCount="5"
@@ -173,11 +171,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ruc"
+            android:id="@+id/nombre_razonsocial2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre o Razon Social"
-            android:inputType="number"
             android:maxLength="11"
             android:maxLines="1"
             android:textColor="#000000"
@@ -203,17 +200,18 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
         app:layout_constraintVertical_bias="0.042" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
         android:text="Filtrar Certificado"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar8"
-        tools:layout_editor_absoluteX="25dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

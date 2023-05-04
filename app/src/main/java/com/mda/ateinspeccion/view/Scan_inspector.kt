@@ -12,16 +12,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mda.ateinspeccion.R
+import com.mda.ateinspeccion.databinding.ActivityScanInspectorBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.mda.ateinspeccion.adapter.CustomAdapter
-import com.mda.ateinspeccion.databinding.ActivityScanInspectorBinding
-import com.mda.ateinspeccion.model.apiService
-import com.mda.ateinspeccion.model.checkinternet1
-import com.mda.ateinspeccion.model.dataCert
-import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.adapter.ListCertAdapter
 import com.mda.ateinspeccion.adapter.detalleAdapter1
-import com.mda.ateinspeccion.model.elecciontramite
+import com.mda.ateinspeccion.detalle_inspector
+import com.mda.ateinspeccion.filtrartiposlicencia
+import com.mda.ateinspeccion.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,7 +33,7 @@ import kotlin.collections.ArrayList
 @Suppress("DEPRECATION")
 class Scan_inspector : AppCompatActivity() {
 
-    private lateinit var   binding:ActivityScanInspectorBinding
+    private lateinit var   binding: ActivityScanInspectorBinding
     private lateinit var datos:String
     private lateinit var  datosUser:Map<String, Objects>
     private lateinit var tolls:Toolbar
@@ -90,40 +89,37 @@ class Scan_inspector : AppCompatActivity() {
         //getSupportActionBar()?.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)));
         //val display=setSupportActionBar(tolls)
 
-         /*binding.btnlupa.setOnClickListener(){
+         binding.btnlupa2.setOnClickListener(){
              hideKeyboard(currentFocus ?: View(this))
 
-             binding.visualizar.visibility= View.INVISIBLE
-             binding.fecharesult1.setText("")
-             binding.constraintLayout3.setBackgroundResource(R.drawable.btn4)
-
+            val i =Intent(this,filtrartiposlicencia::class.java)
+             startActivity(i)
              //initScan()
-         }*/
-        if(elecciontramite.indeterminada==1){
+         }
 
 
-        }else if(elecciontramite.temporal==1){
 
-        }else if(elecciontramite.itcse==1){
-
-        }
 
         binding.btnlupa1.setOnClickListener(){
             //buscarCertificado(binding.etNumeros.text.toString())
             hideKeyboard(currentFocus ?: View(this))
+            buscardatosretrofitsubgerenempresarial(
+                binding.lic.text.toString(),
+                binding.exp.text.toString(),
+                binding.ruc.text.toString(),
+                binding.nombreRazonsocial2.text.toString()
+            )
 
-            buscardatosretrofit(binding.lic.text.toString())
+
+
         }
         adapterCert = detalleAdapter1(listcertfasociate){
-
+                certificado ->onItemSelected(certificado)
         }
         binding.recyclerview.layoutManager= LinearLayoutManager(this)
         binding.recyclerview.adapter = adapterCert
 
     }
-
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             android.R.id.home->{
@@ -159,23 +155,36 @@ class Scan_inspector : AppCompatActivity() {
 
     //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
 
-    private fun buscardatosretrofit(dato:String){
+    fun buscardatosretrofitsubgerenempresarial(
+        lic: String,
+        exp: String,
+        ruc: String,
+        nom_razon: String
+    ){
         val check=checkinternet1()
         if (check.checkForInternet(this)) {
             //Buscar certificados
             ////
             getRetrofit()
             var Lic_func1: String? =""
-            var url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
-            var url1="certificados_apps/conexiones_php/consultar.php?LIC=$dato"
-            if(elecciontramite.indeterminada==1){
-                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
-            }else if(elecciontramite.temporal==1){
-                url2="certificados_apps/conexiones_php/temporales.php?LIC=$dato"
+            var url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
+            var url1="certificados_apps/conexiones_php/consultar.php?LIC=$lic"
 
-            }else {
-                url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$dato"
+            when (elecciontramite.tipo) {
+                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.ecse -> print("x == 2")
+                elecciontramite.contrusccion-> print("x == 1")
+                elecciontramite.habilitacion -> print("x == 2")
+
+                else -> { // Note the block
+                    url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
+
+                }
             }
+
+
+
             //val select = binding.Rgroup.getCheckedRadioButtonId()
             /*if(select==binding.r1.id){
                 //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
@@ -255,6 +264,8 @@ class Scan_inspector : AppCompatActivity() {
 
                         listcertfasociate.clear()
                         listcertfasociate.addAll(listaPerros)
+                        objectlistcertlic.clearAllPersons()
+                        objectlistcertlic.arraycert=listcertfasociate
                         changelist(listcertfasociate)
                         Log.d("ayush: ", certificados.toString())
                         //initActivity2(listcertfasociate)
@@ -339,4 +350,24 @@ class Scan_inspector : AppCompatActivity() {
     }
 
 
+    private fun onItemSelected (datacer:dataCert){
+        val i = Intent(this,list::class.java).apply {
+            putExtra("Estado",datacer.Estado)
+            putExtra("lic_func",datacer.Lic_Func)
+            putExtra("Nombre_razon",datacer.Nombre_Razón_Social)
+            putExtra("Direccion",datacer.Direccion)
+            putExtra("Zona",datacer.Zona_Urbana)
+            putExtra("Num_Res",datacer.Num_Res        )
+            putExtra("Num_Exp",datacer.Num_Exp        )
+            putExtra("Giro",datacer.Giro           )
+            putExtra("Area",datacer.Area           )
+            putExtra("Fecha_Exp",datacer.Fecha_Exp      )
+            putExtra("Fecha_Caducidad",datacer.Fecha_Caducidad)
+
+        }
+
+
+        startActivity(i)
+
+    }
 }
