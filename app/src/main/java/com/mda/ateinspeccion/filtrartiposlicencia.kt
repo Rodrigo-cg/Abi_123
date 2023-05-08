@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mda.ateinspeccion.adapter.detalleAdapter1
 import com.mda.ateinspeccion.databinding.ActivityFiltrartiposlicenciaBinding
 import com.mda.ateinspeccion.model.dataCert
@@ -23,8 +24,8 @@ class filtrartiposlicencia : AppCompatActivity() {
         adapterCert = detalleAdapter1(objectlistcertlic.arraycert){
                 certificado ->onItemSelected(certificado)
         }
-        binding.recyclerview.layoutManager= LinearLayoutManager(this)
-        binding.recyclerview.adapter = adapterCert
+        binding.indetcard.layoutManager= LinearLayoutManager(this)
+        binding.indetcard.adapter = adapterCert
     }
 
     private fun onItemSelected (datacer: dataCert){
