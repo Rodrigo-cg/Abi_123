@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.model.dataCert
 
-class detalleAdapter1(private val detalleList:List<dataCert>,private val onClickListener: (dataCert)->Unit) :  RecyclerView.Adapter<detalleAdapter1.ViewHolder>() {
+class detalleAdapter1(private val detalleList:List<dataCert>, private val onClickListener: (dataCert)->Unit) :  RecyclerView.Adapter<detalleAdapter1.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(R.layout.cardview1filtro,parent,false)

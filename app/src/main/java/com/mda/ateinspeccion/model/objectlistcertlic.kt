@@ -1,9 +1,9 @@
 package com.mda.ateinspeccion.model
 
 object objectlistcertlic {
-    var arraycert = arrayListOf<dataCert>()
+    var mutablelitcert = mutableListOf<dataCert>()
 
     fun clearAllPersons() {
-        arraycert.clear()
+        mutablelitcert.clear()
     }
 }

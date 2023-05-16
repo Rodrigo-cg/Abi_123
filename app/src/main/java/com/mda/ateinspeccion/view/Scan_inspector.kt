@@ -52,7 +52,7 @@ class Scan_inspector : AppCompatActivity() {
     private var  Area= ""
     private var  Fecha_Exp= ""
     private var  Fecha_Caducidad= ""
-    public  var listcertfasociate = ArrayList<dataCert>()
+    public  var listcertfasociate = mutableListOf<dataCert>()
 
 
 
@@ -112,6 +112,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
 
+
         }
         adapterCert = detalleAdapter1(listcertfasociate){
                 certificado ->onItemSelected(certificado)
@@ -133,28 +134,6 @@ class Scan_inspector : AppCompatActivity() {
     private  fun initScan(){
         //IntentIntegrator(this).initiateScan()
     }
-
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val resultado = IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
-
-        if(resultado != null){
-            if(resultado.contents == null){
-                Toast.makeText(this,"Cancelado", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this,"Valor del scanner ${resultado.contents}", Toast.LENGTH_SHORT).show()
-                datos = resultado.contents
-                buscardatosretrofit(datos)
-
-
-            }
-        }else{
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
-    }*/
-
-    //val activityLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-
     fun buscardatosretrofitsubgerenempresarial(
         lic: String,
         exp: String,
@@ -170,108 +149,46 @@ class Scan_inspector : AppCompatActivity() {
             var url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
             var url1="certificados_apps/conexiones_php/consultar.php?LIC=$lic"
 
+            var url6=""
+            var url7=""
+            var url4=""
+            var url3=""
+            var url5=""
+            // Evaluamos el estado de la variable del tipo de licencia elecciontramite
+
             when (elecciontramite.tipo) {
-                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.ecse -> print("x == 2")
-                elecciontramite.contrusccion-> print("x == 1")
-                elecciontramite.habilitacion -> print("x == 2")
+                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.itcse -> url3="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.ecse -> url4="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.contrusccion-> url5="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.habilitacion -> url6="https://script.google.com/macros/s/AKfycbwaYHIekRJgODFmd_wr5q4B4MchYmJZqKG6INlnD_d3fR3cqbslQCbiboM3h64yPyvs/exec?spreadsheetId=19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw&sheet=Resoluciones-2023&expediente=76&licencia="
 
                 else -> { // Note the block
-                    url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
+                    url7 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
 
                 }
             }
 
 
 
-            //val select = binding.Rgroup.getCheckedRadioButtonId()
-            /*if(select==binding.r1.id){
-                //url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$dato"
-                Lic_func1=dato.padStart(4, '0')
-                url1="certificados_apps/conexiones_php/consultar.php?LIC=$Lic_func1"
-                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
-            }else {
-                Lic_func1=dato.padStart(10, '0')
-                url1="certificados_apps/conexiones_php/consultarindeter.php?LIC=$Lic_func1"
-                url2="certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$Lic_func1"
-            }*/
-            /*CoroutineScope(Dispatchers.IO).launch {
-                GlobalScope.launch {
-                    val result = getRetrofit().create(apiService::class.java). getDataCert(url1)
-                    //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
-
-                    val certpar=result.body()
-                    runOnUiThread{
-                        if (result != null) {
-                            // Checking the results
-                            Log.d("ayush: ", result.body().toString())
-                            Estado= certpar?.Estado ?:"No exite en base de datos"
-                            Lic_func= certpar?.Lic_Func ?:"No exite en base de datos"
-                            Nombre_Razon= certpar?.Nombre_Razón_Social ?:"No exite en base de datos"
-                            direccion= certpar?.Direccion ?:"No exite en base de datos"
-                            zona           = certpar?.Zona_Urbana ?:"No exite en base de datos"
-                            Num_Res         =  certpar?.Num_Res?:"No exite en base de datos"
-                            Num_Exp         = certpar?.Num_Exp?:"No exite en base de datos"
-                            Giro            = certpar?.Giro?:"No exite en base de datos"
-                            Area            = certpar?.Area?:"No exite en base de datos"
-                            Fecha_Exp       = certpar?.Fecha_Exp?:"No exite en base de datos"
-                            Fecha_Caducidad=certpar?.Fecha_Caducidad?:"No exite en base de datos"
-
-                            /*if(Lic_func.equals(Lic_func1)){
-                                if(Estado.equals("VIGENTE")){
-                                    binding.constraintLayout3.setBackgroundResource(R.drawable.estadoactivo)
-                                    //binding.fecharesult.setBackgroundColor(R.drawable.btn3)
-                                    binding.fecharesult1.setText(Fecha_Exp)
-                                    val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                                    passwordLayout.error = null
-
-                                }
-                                else {
-                                    binding.constraintLayout3.setBackgroundResource(R.drawable.estadoinactivo)
-                                    binding.fecharesult1.setText(Fecha_Exp)
-                                    val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                                    passwordLayout.error = null
-                                }
-                                binding.datacert.visibility= View.VISIBLE
-                                binding.datacert.setOnClickListener(){
-                                    initActivity(Estado,Lic_func,Nombre_Razon,direccion,zona,Num_Res,Num_Exp,Giro,Area,Fecha_Exp,Fecha_Caducidad)
-                                }
-                            }
-                            else
-                            {
-                                val passwordLayout: TextInputLayout =findViewById(R.id.textInputLayout)
-                                passwordLayout.error = "Datos incorrectos"
-                            }*/
-
-
-
-                            //binding.estadoresult.setText(Estado)
-                        }else
-                            Toast.makeText(applicationContext, "No se recibe ningun", Toast.LENGTH_SHORT).show()
-                    }
-
-
-                }
-            }*/
             CoroutineScope(Dispatchers.IO).launch {
                 val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
                 val certificados = call.body()
 
                 runOnUiThread {
                     if(call.isSuccessful){
-                        val  listaPerros = certificados?.datos ?: emptyList()
+                        var  listaPerros = certificados?.datos ?: emptyList()
 
                         listcertfasociate.clear()
                         listcertfasociate.addAll(listaPerros)
-                        objectlistcertlic.clearAllPersons()
-                        objectlistcertlic.arraycert=listcertfasociate
-                        changelist(listcertfasociate)
+                        adapterCert.notifyDataSetChanged()
+                        //objectlistcertlic.clearAllPersons()
+                        objectlistcertlic.mutablelitcert=listcertfasociate
                         Log.d("ayush: ", certificados.toString())
                         //initActivity2(listcertfasociate)
-                        //adapterCert= detalleAdapter1(this,listcertfasociate)
 
-                        adapterCert.notifyDataSetChanged()
+
                     }else{
                         showError()
                     }
@@ -286,13 +203,6 @@ class Scan_inspector : AppCompatActivity() {
 
 
         }
-
-    private fun changelist(listcertfasociate: java.util.ArrayList<dataCert>) {
-       // listAdapterCert = CustomAdapter(this, listcertfasociate)
-
-        // binding.listviewcert.adapter = listAdapterCert
-    }
-
     private fun initActivity2(listcertfasociate: ArrayList<dataCert>) {
         val intent = Intent(this, filtroSubgerencia::class.java)
         intent.putExtra("listcertfasociate2", ArrayList(listcertfasociate))

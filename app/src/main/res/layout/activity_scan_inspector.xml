@@ -17,6 +17,68 @@
 -->
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4_2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="visible"
+        app:boxBackgroundColor="#ffffff"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout4_1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="216dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/exp_sghue"
+            android:layout_width="126dp"
+            android:layout_height="50dp"
+            android:hint="N°Exp SGHUE"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textColorHint="#BAB1B1"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4_1"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="visible"
+        app:boxBackgroundColor="#ffffff"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="216dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/exp_ITCSE"
+            android:layout_width="126dp"
+            android:layout_height="50dp"
+            android:hint="N°Exp SGRD"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textColorHint="#BAB1B1"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
@@ -31,14 +93,14 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/exp"
-            android:layout_width="120dp"
+            android:layout_width="126dp"
             android:layout_height="50dp"
-            android:hint="N°Expediente"
+            android:hint="N°Exp SGPFET"
             android:inputType="number"
             android:maxLength="11"
             android:maxLines="1"
@@ -64,7 +126,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -97,7 +159,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -128,10 +190,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="380dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="377dp"
+        android:layout_height="239dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnlupa1"
         tools:itemCount="5"
@@ -155,11 +218,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="252dp"
+        android:layout_width="0dp"
 
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_weight="1"
-        android:paddingStart="10dp"
         android:paddingRight="10dp"
         android:visibility="visible"
         app:boxBackgroundColor="#ffffff"
@@ -167,8 +230,9 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintEnd_toStartOf="@+id/btnlupa2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombre_razonsocial2"
@@ -195,10 +259,10 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.34" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView12"
