@@ -40,6 +40,8 @@ class list : AppCompatActivity() {
             finish()
 
         }
+
+
         val nameList = arrayOf("Nombre", "Giro", "Área", "Dirección", "Fecha de Expedición", "Número de Expediente", "Número de Resolución", "Número de Certificado","Fecha de caducidad")
         val timeList = arrayOf(Nombre_razon, Giro, Area +" m2", Direccion, Fecha_Exp, Num_Exp, Num_Res, lic_func,Fecha_Caducidad + "\n")
         for (i in nameList.indices) {

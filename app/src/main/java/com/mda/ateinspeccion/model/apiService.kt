@@ -14,8 +14,30 @@ interface apiService {
     @GET
     suspend fun getValidUser(@Url url:String) : Response<dataUser>
     @GET
-    suspend fun getAllcertrelacionados(@Url url:String) : Response<responseCert>
+    suspend fun getAllLicIndt(@Url url:String) : Response<responseCert>
     @POST("certificados_apps/conexiones_php/historiallogin.php")
     fun addHistorialSesion(@Body cert:userInfo) : Call<postRes>
+//Api Services de base de datos
+
+    //Api services de MySQL
+    @GET
+    suspend fun getAllLicTemp(@Url url: String): Response<ResponseMuniateSQL_ind>
+
+    @GET
+    suspend fun getAllDataInd(@Url url: String): Response<ResponseListeDatacertGoogleSGHUE>
+
+    @GET
+    suspend fun getAllITCSE_ECSE_2023(@Url url: String): Response<ResponseListeDatacertGoogleSGHUE>
+
+    @GET
+    suspend fun getAllITCSE_ECSE_2022(@Url url: String): Response<ResponseListeDatacertGoogleSGHUE>
+
+    @GET
+    suspend fun getAllHabilitacion(@Url url: String): Response<ResponseListeDatacertGoogleSGHUE>
+
+    @GET
+    suspend fun getAllConstruccion(@Url url: String): Response<ResponseMuniateSQL_ind>
+
+
 }
 

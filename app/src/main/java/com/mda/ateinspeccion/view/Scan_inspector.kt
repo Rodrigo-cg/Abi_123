@@ -18,7 +18,6 @@ import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.mda.ateinspeccion.adapter.CustomAdapter
 import com.mda.ateinspeccion.adapter.ListCertAdapter
 import com.mda.ateinspeccion.adapter.detalleAdapter1
-import com.mda.ateinspeccion.detalle_inspector
 import com.mda.ateinspeccion.filtrartiposlicencia
 import com.mda.ateinspeccion.model.*
 import kotlinx.coroutines.CoroutineScope
@@ -105,7 +104,9 @@ class Scan_inspector : AppCompatActivity() {
             hideKeyboard(currentFocus ?: View(this))
             buscardatosretrofitsubgerenempresarial(
                 binding.lic.text.toString(),
-                binding.exp.text.toString(),
+                binding.expLic.text.toString(),
+                binding.expITCSE.text.toString(),
+                binding.expSghue.text.toString(),
                 binding.ruc.text.toString(),
                 binding.nombreRazonsocial2.text.toString()
             )
@@ -136,7 +137,9 @@ class Scan_inspector : AppCompatActivity() {
     }
     fun buscardatosretrofitsubgerenempresarial(
         lic: String,
-        exp: String,
+        exp_lic: String,
+        exp_sgrd: String,
+        exp_sghue:String,
         ruc: String,
         nom_razon: String
     ){
@@ -157,12 +160,13 @@ class Scan_inspector : AppCompatActivity() {
             // Evaluamos el estado de la variable del tipo de licencia elecciontramite
 
             when (elecciontramite.tipo) {
-                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.itcse -> url3="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.ecse -> url4="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.contrusccion-> url5="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.habilitacion -> url6="https://script.google.com/macros/s/AKfycbwaYHIekRJgODFmd_wr5q4B4MchYmJZqKG6INlnD_d3fR3cqbslQCbiboM3h64yPyvs/exec?spreadsheetId=19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw&sheet=Resoluciones-2023&expediente=76&licencia="
+
+                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.itcse -> url3="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.ecse -> url4="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.contrusccion-> url5="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+                elecciontramite.habilitacion -> url2="https://script.google.com/macros/s/AKfycby_NGahQB_zV7CzcFACxJQRi063uAdU7wAktnMAYv2FI_XrY5h-l8AI_iLqur4jyL5o/exec?spreadsheetId=19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw&sheet=Resoluciones-2023&expediente=$exp_sghue&licencia=$nom_razon"
 
                 else -> { // Note the block
                     url7 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
@@ -172,8 +176,8 @@ class Scan_inspector : AppCompatActivity() {
 
 
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val call = getRetrofit().create(apiService::class.java).getAllcertrelacionados(url2)
+            CoroutineScope(Dispatchers.Default).launch {
+                val call = getRetrofit().create(apiService::class.java).getAllLicIndt(url2)
                 val certificados = call.body()
 
                 runOnUiThread {
@@ -195,6 +199,7 @@ class Scan_inspector : AppCompatActivity() {
                 }
             }
 
+
             ////
 
         } else {
@@ -210,13 +215,23 @@ class Scan_inspector : AppCompatActivity() {
 
     }
 
-    private fun getRetrofit(): Retrofit {
+    private fun getRetrofit(tipodb:String): Retrofit {
+
+        if(tipodb.equals("sql")){
         return Retrofit.Builder()
              .baseUrl("https://proyectosti.muniate.gob.pe/")
             //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().build())
             .build()
+        }else {
+            return Retrofit.Builder()
+                .baseUrl("https://proyectosti.muniate.gob.pe/")
+                //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(OkHttpClient.Builder().build())
+                .build()
+        }
     }
     private fun buscarUrl(links: String) {
 

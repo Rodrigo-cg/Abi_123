@@ -38,57 +38,6 @@ class detalle_inspector : AppCompatActivity() {
 
     }
 
-    /*fun buscarCertificados(dato:String){
-        val db = Firebase.firestore
-        certiList = ArrayList()
-        adapterCerti = detalleAdapter(certiList)
-/*
-        db.collection("user")
-            .whereEqualTo("codigo", dato)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-            }
-        */
-        db.collection("empresa")
-            .whereEqualTo("dni",dato)
-            .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents){
-                    if(document == null ){
-                        println("SAPOSSSSSSS------------------------")
-                        Toast.makeText(this,"No hay datos", Toast.LENGTH_SHORT).show()
-                    }else{
-                        println("SAPOSSSSSSS------------------------22222")
-                        val cerItem = document.toObject(Certificados::class.java)
-                        cerItem.razon = document["razon"].toString()
-                        cerItem.representante = document["representante"].toString()
-                        cerItem.direccion = document["direccion"].toString()
-                        cerItem.actividad = document["actividad"].toString()
-                        cerItem.fechaVencimiento = document["fecvencer"].toString()
-                        cerItem.vigencia = document["vigencia"].toString()
 
 
-                        binding.rvResultados.layoutManager = LinearLayoutManager(this)
-                        binding.rvResultados.adapter = adapterCerti
-                        certiList.add(cerItem)
-
-                    }
-                    contador++
-                    Toast.makeText(this,"Coincidencias ${contador}", Toast.LENGTH_SHORT).show()
-                    //val certList: MutableMap<String, Any> = document.data
-                    Log.i("listadoosss", document.data.toString())
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                    println(certiList)
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-            }
-    }*/
-}
+   }
