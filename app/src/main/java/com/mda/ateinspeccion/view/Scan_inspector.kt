@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.databinding.ActivityScanInspectorBinding
@@ -22,7 +23,9 @@ import com.mda.ateinspeccion.filtrartiposlicencia
 import com.mda.ateinspeccion.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -147,10 +150,51 @@ class Scan_inspector : AppCompatActivity() {
         if (check.checkForInternet(this)) {
             //Buscar certificados
             ////
-            getRetrofit()
+
+            ///Configurar Retrofit para las APIS
+
+            ////FORMALIZACION EMPRESARIAL
+            val Retrofit_mysql_ind = Retrofit.Builder()
+                .baseUrl("https://proyectosti.muniate.gob.pe")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val Retro_forma_indt_apiservice = Retrofit_mysql_ind.create(IapiService::class.java)
+
+            val Retrofit_mysql_temp = Retrofit.Builder()
+                .baseUrl("https://proyectosti.muniate.gob.pe")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val Retro_forma_temp_apiservice = Retrofit_mysql_temp.create(IapiService::class.java)
+
+            ////HABILITACIONES
+            val Retrofit_google_SGHUE = Retrofit.Builder()
+                .baseUrl("https://script.google.com/macros/s/AKfycby_NGahQB_zV7CzcFACxJQRi063uAdU7wAktnMAYv2FI_XrY5h-l8AI_iLqur4jyL5o/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            val Retro_hab_apiservice = Retrofit_google_SGHUE.create(IapiService::class.java)
+
+            ////RIESGO DESASTRE
+            val Retrofit_google_riesgo_desastre_2023 = Retrofit.Builder()
+                .baseUrl("https://script.google.com/macros/s/AKfycby_NGahQB_zV7CzcFACxJQRi063uAdU7wAktnMAYv2FI_XrY5h-l8AI_iLqur4jyL5o/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            val Retro_Riesgo2023_apiservice = Retrofit_google_riesgo_desastre_2023.create(IapiService::class.java)
+
+
+            val Retrofit_MySQL_riesgo_desastre_2022 = Retrofit.Builder()
+                .baseUrl("https://proyectosti.muniate.gob.pe")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val Retro_Riesgo2022_apiservice = Retrofit_MySQL_riesgo_desastre_2022.create(IapiService::class.java)
+
+            ///Terminar de configurar Retrofit
+
             var Lic_func1: String? =""
-            var url2 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
-            var url1="certificados_apps/conexiones_php/consultar.php?LIC=$lic"
+            var url_1 = ""
+            var url_2=""
 
             var url6=""
             var url7=""
@@ -159,25 +203,67 @@ class Scan_inspector : AppCompatActivity() {
             var url5=""
             // Evaluamos el estado de la variable del tipo de licencia elecciontramite
 
-            when (elecciontramite.tipo) {
 
-                elecciontramite.temporal-> url2="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.indeterminada -> url2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.itcse -> url3="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.ecse -> url4="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.contrusccion-> url5="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
-                elecciontramite.habilitacion -> url2="https://script.google.com/macros/s/AKfycby_NGahQB_zV7CzcFACxJQRi063uAdU7wAktnMAYv2FI_XrY5h-l8AI_iLqur4jyL5o/exec?spreadsheetId=19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw&sheet=Resoluciones-2023&expediente=$exp_sghue&licencia=$nom_razon"
+            url_1="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
+            url_2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
 
-                else -> { // Note the block
-                    url7 = "certificados_apps/conexiones_php/FiltraNumLicencia.php?LIC=$lic"
+
+            lifecycleScope.launch(Dispatchers.IO) {
+
+                val sqlIndt_deferred =async { Retro_forma_indt_apiservice.getAllLicInd(
+                    "exec?spreadsheetId=19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw&sheet=Resoluciones-2023&expediente=70&razon_nombre="
+                ) }
+
+                val sqlTemp_deferred = async{Retro_forma_temp_apiservice.getAllLicTemp(
+                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
+                )}
+
+                val google_SGHUE = async{Retro_hab_apiservice.getAllHabilitacion(
+                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
+                )}
+
+                val sqlTemp_deferred = async{Retro_forma_temp_apiservice.getAllLicTemp(
+                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
+                )}
+
+                val sqlTemp_deferred = async{Retro_forma_temp_apiservice.getAllLicTemp(
+                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
+                )}
+
+
+                val googleScriptData=googleScriptData_deferred.await()
+                val muniateData=muniateData_deferred.await()
+
+
+
+
+                // Procesar los datos de respuesta según sea necesario
+                withContext(Dispatchers.Main){
+                    if(googleScriptData.isSuccessful){
+                        val cuerpoGoogleSheets=googleScriptData.body()
+                        Toast.makeText(this@MainActivity,"chapar api 1 google",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush google sheets: ", cuerpoGoogleSheets.toString())
+
+                    }
+                    if(muniateData.isSuccessful){
+                        val cuerpoSQLind=muniateData.body()
+
+                        Toast.makeText(this@MainActivity,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush sql: ", cuerpoSQLind.toString())
+
+                    }
 
                 }
+
+
+
+
             }
 
 
 
             CoroutineScope(Dispatchers.Default).launch {
-                val call = getRetrofit().create(apiService::class.java).getAllLicIndt(url2)
+                val call = getRetrofit().create(IapiService::class.java).getAllLicIndt(url2)
                 val certificados = call.body()
 
                 runOnUiThread {

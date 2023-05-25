@@ -29,14 +29,14 @@ data class ResponseDataGoogleSheeets_sghue(
     )
 
 data class ResponseDataGoogleSheeets_riesgo_desastre(
-    @SerializedName("EXP") val exp_sghue: String? = null,
-    @SerializedName("N° RES") val nom_razon_sghue: String? = null,
-    @SerializedName("Fecha de Expedición") val tipo_Reso_sghue: String? = null,
-    @SerializedName("RAZON SOCIAL") val descripcion: String? = null,
-    @SerializedName("REPRESENTANTE") val descripcion: String? = null,
-    @SerializedName("AREA") val descripcion: String? = null,
-    @SerializedName("GIRO") val descripcion: String? = null,
-    @SerializedName("RIESGO") val descripcion: String? = null,
-    @SerializedName("DIRECCION") val descripcion: String? = null,
-    @SerializedName("Fecha de Caducidad") val descripcion: String? = null,
+    @SerializedName("EXP") val exp_itcse: String? = null,
+    @SerializedName("N° RES") val nom_razon_itcse: String? = null,
+    @SerializedName("Fecha de Expedición") val fecha_exp_itcse: String? = null,
+    @SerializedName("RAZON SOCIAL") val razonsocial_itcse: String? = null,
+    @SerializedName("REPRESENTANTE") val represen_itcse: String? = null,
+    @SerializedName("AREA") val area_itcse: String? = null,
+    @SerializedName("GIRO") val giro_itcse: String? = null,
+    @SerializedName("RIESGO") val riesgo_itcse: String? = null,
+    @SerializedName("DIRECCION") val direccion_itcse: String? = null,
+    @SerializedName("Fecha de Caducidad") val fecha_cad_itcse: String? = null,
 )

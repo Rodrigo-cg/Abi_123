@@ -1,7 +1,6 @@
 package com.mda.ateinspeccion.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -12,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.mda.ateinspeccion.R
 import com.mda.ateinspeccion.databinding.ActivityScanCiudadanoBinding
-import com.mda.ateinspeccion.model.apiService
+import com.mda.ateinspeccion.model.IapiService
 import com.mda.ateinspeccion.model.checkinternet1
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.textfield.TextInputLayout
@@ -153,7 +152,7 @@ class Scan_ciudadano : AppCompatActivity() {
                     CoroutineScope(Dispatchers.IO).launch {
                         GlobalScope.launch {
                             val result =
-                                getRetrofit().create(apiService::class.java).getDataCert(url1)
+                                getRetrofit().create(IapiService::class.java).getDataCert(url1)
                             //     val result = getRetrofit().create(apiService::class.java). getDataCert(dato)
 
                             val certpar = result.body()

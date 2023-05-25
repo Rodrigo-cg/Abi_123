@@ -4,23 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.mda.ateinspeccion.R
-import com.mda.ateinspeccion.model.apiService
+import com.mda.ateinspeccion.model.IapiService
 import com.mda.ateinspeccion.model.checkinternet1
 import com.google.android.material.textfield.TextInputLayout
-import com.mda.ateinspeccion.model.userInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -88,7 +83,7 @@ class login : AppCompatActivity() {
 
         if(check.checkForInternet(this)) {
             CoroutineScope(Dispatchers.IO).launch {
-                val calls = getRetrofit().create(apiService::class.java)
+                val calls = getRetrofit().create(IapiService::class.java)
                     .getValidUser("certificados_apps/conexiones_php/validarLogin.php?user=$user&pass=$pass")
                 val users = calls.body()
                 runOnUiThread {

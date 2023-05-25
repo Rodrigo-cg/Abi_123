@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mda.ateinspeccion"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 5
         versionName "1.5"
@@ -69,5 +69,4 @@ dependencies {
     //Fragments
     implementation "androidx.fragment:fragment-ktx:1.5.6"
     // or
-    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1' // Android X
 }
