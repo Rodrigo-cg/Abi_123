@@ -54,7 +54,7 @@ class Scan_inspector : AppCompatActivity() {
     private var  Area= ""
     private var  Fecha_Exp= ""
     private var  Fecha_Caducidad= ""
-    public  var listcertfasociate = mutableListOf<dataCert>()
+    public  var listcertfasociateTemp = mutableListOf<ResponseDataSQL_ind_temp>()
 
 
 
@@ -118,7 +118,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
         }
-        adapterCert = detalleAdapter1(listcertfasociate){
+        adapterCert = detalleAdapter1(listcertfasociateTemp){
                 certificado ->onItemSelected(certificado)
         }
         binding.recyclerview.layoutManager= LinearLayoutManager(this)
@@ -184,7 +184,7 @@ class Scan_inspector : AppCompatActivity() {
 
 
             val Retrofit_MySQL_riesgo_desastre_2022 = Retrofit.Builder()
-                .baseUrl("https://proyectosti.muniate.gob.pe")
+                .baseUrl("https://kbmpqkhuwqrwegdkwqqm.supabase.co")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -203,6 +203,9 @@ class Scan_inspector : AppCompatActivity() {
             var url5=""
             // Evaluamos el estado de la variable del tipo de licencia elecciontramite
 
+            val spreadsheetId = "19N8hMeopjCvvXLa3l5cjKKUyQugptAtuOokYPsWzGUw"
+            val sheet = "Resoluciones-2023"
+            val razonNombre = " "
 
             url_1="certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
             url_2="certificados_apps/conexiones_php/tiposlicencia/indeterminados_actualizable.php?filtro1=$lic&filtro2=$exp_lic&filtro3=$nom_razon&filtro4=$ruc"
@@ -218,74 +221,80 @@ class Scan_inspector : AppCompatActivity() {
                     "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
                 )}
 
-                val google_SGHUE = async{Retro_hab_apiservice.getAllHabilitacion(
-                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
-                )}
+                val google_SGHUE_deferred = async{Retro_hab_apiservice.getAllHabilitacion(spreadsheetId, sheet, exp_sghue, nom_razon)}
 
-                val sqlTemp_deferred = async{Retro_forma_temp_apiservice.getAllLicTemp(
-                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
-                )}
+                val google_RiesgoDesastre_deferred = async{Retro_Riesgo2023_apiservice.getAllITCSE_ECSE_2023(spreadsheetId, sheet, exp_sghue, nom_razon)}
 
-                val sqlTemp_deferred = async{Retro_forma_temp_apiservice.getAllLicTemp(
-                    "certificados_apps/conexiones_php/tiposlicencia/temporales_actualizable.php?filtro1=589&filtro2=&filtro3=&filtro4="
+                val google_RiesgoDesastre2022_deferred  = async{Retro_Riesgo2022_apiservice.getAllITCSE_ECSE_2022(
+                    "rest/v1/TABLE_2022_RIESGO?select=*"
                 )}
 
 
-                val googleScriptData=googleScriptData_deferred.await()
-                val muniateData=muniateData_deferred.await()
+                val sqlInd_data=sqlIndt_deferred.await()
+                val sqlTemp_data=sqlTemp_deferred.await()
+                val googleSGHUE_data=google_SGHUE_deferred.await()
+                val googleRiesgoDesastre=google_RiesgoDesastre_deferred.await()
+                val googleRiesgoDesastre2022=google_RiesgoDesastre2022_deferred.await()
+
 
 
 
 
                 // Procesar los datos de respuesta según sea necesario
                 withContext(Dispatchers.Main){
-                    if(googleScriptData.isSuccessful){
-                        val cuerpoGoogleSheets=googleScriptData.body()
-                        Toast.makeText(this@MainActivity,"chapar api 1 google",Toast.LENGTH_SHORT).show()
-                        Log.d("ayush google sheets: ", cuerpoGoogleSheets.toString())
+                    if(sqlInd_data.isSuccessful){
+                        val cuerpo_sqlInd_data=sqlInd_data.body()
 
-                    }
-                    if(muniateData.isSuccessful){
-                        val cuerpoSQLind=muniateData.body()
+                        var  listaTemp = cuerpo_sqlInd_data?.datos ?: emptyList()
 
-                        Toast.makeText(this@MainActivity,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
-                        Log.d("ayush sql: ", cuerpoSQLind.toString())
-
-                    }
-
-                }
-
-
-
-
-            }
-
-
-
-            CoroutineScope(Dispatchers.Default).launch {
-                val call = getRetrofit().create(IapiService::class.java).getAllLicIndt(url2)
-                val certificados = call.body()
-
-                runOnUiThread {
-                    if(call.isSuccessful){
-                        var  listaPerros = certificados?.datos ?: emptyList()
-
-                        listcertfasociate.clear()
-                        listcertfasociate.addAll(listaPerros)
+                        listcertfasociateTemp.clear()
+                        listcertfasociateTemp.addAll(listaTemp)
                         adapterCert.notifyDataSetChanged()
                         //objectlistcertlic.clearAllPersons()
-                        objectlistcertlic.mutablelitcert=listcertfasociate
-                        Log.d("ayush: ", certificados.toString())
-                        //initActivity2(listcertfasociate)
+                        objectlistcertlic.mutablelitcert=listcertfasociateTemp
 
 
-                    }else{
-                        showError()
+                        Toast.makeText(this@Scan_inspector,"chapar api 1 google",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush google sheets: ", cuerpo_sqlInd_data.toString())
+
                     }
+                    if(sqlTemp_data.isSuccessful){
+                        val cuerpo_sqlTemp_data=sqlTemp_data.body()
+
+                        Toast.makeText(this@Scan_inspector,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush sql: ", cuerpo_sqlTemp_data.toString())
+
+                    }
+                    if(googleSGHUE_data.isSuccessful){
+                        val cuerpo_googleSGHUE_data=googleSGHUE_data.body()
+
+                        Toast.makeText(this@Scan_inspector,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush sql: ", cuerpo_googleSGHUE_data.toString())
+
+                    }
+                    if(googleRiesgoDesastre.isSuccessful){
+                        val cuerpo_googleRiesgoDesastre=googleRiesgoDesastre.body()
+
+                        Toast.makeText(this@Scan_inspector,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush sql: ", cuerpo_googleRiesgoDesastre.toString())
+
+                    }
+                    if(googleRiesgoDesastre2022.isSuccessful){
+                        val cuerpo_googleRiesgoDesastre2022=googleRiesgoDesastre2022.body()
+
+                        Toast.makeText(this@Scan_inspector,"chapar api 2 sql",Toast.LENGTH_SHORT).show()
+                        Log.d("ayush sql: ", cuerpo_googleRiesgoDesastre2022.toString())
+
+                    }
+
+
+
                 }
+
+
+
+
             }
-
-
             ////
 
         } else {
@@ -301,24 +310,7 @@ class Scan_inspector : AppCompatActivity() {
 
     }
 
-    private fun getRetrofit(tipodb:String): Retrofit {
 
-        if(tipodb.equals("sql")){
-        return Retrofit.Builder()
-             .baseUrl("https://proyectosti.muniate.gob.pe/")
-            //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder().build())
-            .build()
-        }else {
-            return Retrofit.Builder()
-                .baseUrl("https://proyectosti.muniate.gob.pe/")
-                //.baseUrl("https://delorekbyrnison.000webhostapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(OkHttpClient.Builder().build())
-                .build()
-        }
-    }
     private fun buscarUrl(links: String) {
 
             val intent =  Intent(Intent.ACTION_VIEW,Uri.parse("$links"))

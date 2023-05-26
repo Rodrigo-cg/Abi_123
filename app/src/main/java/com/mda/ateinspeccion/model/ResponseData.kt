@@ -40,3 +40,16 @@ data class ResponseDataGoogleSheeets_riesgo_desastre(
     @SerializedName("DIRECCION") val direccion_itcse: String? = null,
     @SerializedName("Fecha de Caducidad") val fecha_cad_itcse: String? = null,
 )
+
+data class ResponseDataSupabase_riesgo_desastre2022(
+    @SerializedName("EXP.") val exp_itcse: String? = null,
+    @SerializedName("N° RES") val nom_razon_itcse: String? = null,
+    @SerializedName("Fecha de Expedición") val fecha_exp_itcse: String? = null,
+    @SerializedName("RAZON SOCIAL") val razonsocial_itcse: String? = null,
+    @SerializedName("REPRESENTANTE") val represen_itcse: String? = null,
+    @SerializedName("AREA") val area_itcse: String? = null,
+    @SerializedName("GIRO") val giro_itcse: String? = null,
+    @SerializedName("RIESGO") val riesgo_itcse: String? = null,
+    @SerializedName("DIRECCION") val direccion_itcse: String? = null,
+    @SerializedName("Fecha de Caducidad") val fecha_cad_itcse: String? = null,
+)
